@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ModernLogin</string>
+    <string name="login_ID_hint">ID</string>
+    <string name="login_password_hint">Password</string>
+
+    <string name="previous">Go to previous</string>
+    <string name="next">Go to next</string>
+
+</resources>
