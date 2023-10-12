@@ -31,17 +31,19 @@ import android.view.KeyEvent
 import android.widget.Toast
 
 class MenuActivity: AppCompatActivity()  {
-    private lateinit var requestCameraFileLauncher : ActivityResultLauncher<Intent>
-    var initTime =0L //뒤로가기 버튼 시각
+    private lateinit var requestCameraFileLauncher : ActivityResultLauncher<Intent> //카메라 런쳐 미리 선언
+    var initTime =0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+        //val userName=intent.getStringExtra("username")
+        //getSupportActionBar()?.setTitle(userName+"님")
+
         val cardView1=findViewById<View>(R.id.card1)
         val cardView2=findViewById<View>(R.id.card2)
         val cardView3=findViewById<View>(R.id.card3)
-        //val cardView4=findViewById<View>(R.id.card4)
 
         val img1=cardView1.findViewById<ImageView>(R.id.MenuImage)
         img1.setImageResource(R.drawable.cameraimg)
@@ -156,7 +158,7 @@ class MenuActivity: AppCompatActivity()  {
                 btn[2].setBackgroundColor(defaultColor)
             }, 300) //
 
-            val intent=Intent(this,MyPageActivity::class.java)
+            val intent=Intent(this,DrawerActivity::class.java)
             startActivity(intent)
         }
 

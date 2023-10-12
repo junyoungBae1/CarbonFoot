@@ -6,4 +6,7 @@
     <string name="previous">Go to previous</string>
     <string name="next">Go to next</string>
 
+    <string name="open">open</string>
+    <string name="close">close</string>
+
 </resources>

@@ -48,7 +48,7 @@
                     android:layout_margin="10dp"
                     android:orientation="vertical">
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputName"
+                        android:id="@+id/InputName"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <EditText
@@ -60,12 +60,12 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputEmail"
+                        android:id="@+id/InputEmail"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
 
                         <EditText
-                            android:id="@+id/editTextEmail"
+                            android:id="@+id/editTextID"
                             style="@style/modifiedEditText"
                             android:inputType="text"
                             android:maxLines="1"
@@ -73,7 +73,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputPassword"
+                        android:id="@+id/InputPassword"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <EditText
@@ -85,7 +85,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputPasswordCheck"
+                        android:id="@+id/PasswordCheck"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <EditText
@@ -97,7 +97,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/textInputMobile"
+                        android:id="@+id/inputMobile"
                         style="@style/parent"
                         android:layout_marginTop="@dimen/loginViewsMargin">
                         <EditText
@@ -109,7 +109,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
-                        android:id="@+id/cirRegisterButton"
+                        android:id="@+id/RegisterButton"
                         style="@style/loginButton"
                         android:text="등록하기"
                         android:layout_gravity="center_horizontal"
