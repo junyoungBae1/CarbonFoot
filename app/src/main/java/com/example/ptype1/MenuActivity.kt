@@ -26,8 +26,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.os.Build
+import android.util.AttributeSet
 import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import android.widget.Toast
 
 class MenuActivity: AppCompatActivity()  {
@@ -158,12 +162,9 @@ class MenuActivity: AppCompatActivity()  {
                 btn[2].setBackgroundColor(defaultColor)
             }, 300) //
 
-            val intent=Intent(this,DrawerActivity::class.java)
+            val intent=Intent(this,tabActivity::class.java)
             startActivity(intent)
         }
-
-
-
 
 
     }
