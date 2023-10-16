@@ -14,7 +14,7 @@
         android:textSize="80sp"
         android:gravity="center"
         android:textStyle="bold"
-        android:text="FOOTFOOT"
+        android:text="FOOT\nFOOT"
         android:textColor="@color/whiteTextColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

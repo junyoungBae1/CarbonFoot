@@ -1,6 +1,7 @@
 package com.example.ptype1
 
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -11,7 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -47,10 +47,10 @@ class MainActivity : AppCompatActivity() {
 
         btn.setOnClickListener { //로그인 버튼 동작
 
-            var intent= Intent(this@MainActivity,MenuActivity::class.java)
-            startActivity(intent)
+            //var intent= Intent(this@MainActivity,MenuActivity::class.java)
+            //startActivity(intent)
 
-            /*idEditText=findViewById(R.id.loginEmail)
+            idEditText=findViewById(R.id.loginEmail)
             passwordEditText=findViewById(R.id.loginPassword)
             val id=idEditText.text.toString()
             val password=passwordEditText.text.toString()
@@ -70,10 +70,22 @@ class MainActivity : AppCompatActivity() {
                         val userphone=userResponse?.phonenum
                         val userpassword=userResponse?.password
 
-                        val data_name=intent.putExtra("username",username)
-                        val data_email=intent.putExtra("useremail",useremail)
-                        val data_phone=intent.putExtra("userphone",userphone)
-                        val data_password=intent.putExtra("userpassword",userpassword)
+                        val token=userResponse?.token
+                        if(token!=null){
+                            val sharedPref= getSharedPreferences("prefName", Activity.MODE_PRIVATE)
+                            val editor=sharedPref.edit()
+                            editor.putString("jwt_token",token)
+                            editor.apply()
+
+                        }
+
+
+                        intent.putExtra("username",username)
+                        intent.putExtra("useremail",useremail)
+                        intent.putExtra("userphone",userphone)
+                        intent.putExtra("userpassword",userpassword)
+
+                        intent.putExtra("menu_name",username)
 
 
                         var intent= Intent(this@MainActivity,MenuActivity::class.java)
@@ -91,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("NetworkError", "네트워크 오류: ${t.message}")
                 }
             })
-            */
+
         }
 
         val defaultColor = Color.parseColor("#4CAF50") //버튼 누르면 글짜 색 바뀌게끔

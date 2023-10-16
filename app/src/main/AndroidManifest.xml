@@ -74,8 +74,10 @@
             android:exported="true"></activity>
 
         <activity
-        android:name=".DrawerActivity"
-        android:label="Drawer Activity"/>
+            android:name=".RankingActivity"
+            android:label="Drawer Activity"/>
+
+
 
         <!--<activity
             android:name=".MainActivity"

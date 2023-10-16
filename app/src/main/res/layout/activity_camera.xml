@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -9,7 +9,76 @@
     <ImageView
         android:id="@+id/cameraResultImg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/kingminseok"/>
+        android:layout_height="280dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/kingminseok" />
 
-</RelativeLayout>
+        <TextView
+            android:text="총 Co2는 20(단위)입니다"
+            android:layout_marginTop="20dp"
+            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:textStyle="bold"/>
+
+
+    <RelativeLayout
+        style="@style/informLayout"
+        android:layout_marginTop="10dp"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/tree"
+            style="@style/treecarImage"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/treeimg" />
+
+        <TextView
+            style="@style/treecarLayout"
+            android:id="@+id/treeCo2"
+            android:layout_toRightOf="@id/tree"
+            android:text="총 n그루 나무" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        style="@style/informLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:id="@+id/mobileImageView"
+            style="@style/treecarImage"
+            android:src="@drawable/carimg" />
+
+        <TextView
+            style="@style/treecarLayout"
+            android:id="@+id/carCo2"
+            android:layout_toRightOf="@id/mobileImageView"
+            android:text="자동차로 n km 이동하였습니다" />
+
+    </RelativeLayout>
+
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/RegFoodDataBtn"
+        style="@style/loginButton"
+        android:layout_gravity="center_horizontal"
+        android:text="음식 저장하기"
+        android:textColor="#FFF" />
+
+    <TextView
+        android:id="@+id/DetailFoodBtn"
+        style="@style/parent"
+        android:layout_marginTop="20dp"
+        android:onClick="onLoginClick"
+        android:text="탄소 세부사항 보기"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@color/green1"
+        android:textSize="15sp" />
+
+</LinearLayout>

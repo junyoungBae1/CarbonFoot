@@ -32,6 +32,7 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 
 class MenuActivity: AppCompatActivity()  {
@@ -42,8 +43,9 @@ class MenuActivity: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-        //val userName=intent.getStringExtra("username")
-        //getSupportActionBar()?.setTitle(userName+"님")
+
+        val userName=intent.getStringExtra("menu_name")
+        getSupportActionBar()?.setTitle(userName+"님")
 
         val cardView1=findViewById<View>(R.id.card1)
         val cardView2=findViewById<View>(R.id.card2)
@@ -162,10 +164,17 @@ class MenuActivity: AppCompatActivity()  {
                 btn[2].setBackgroundColor(defaultColor)
             }, 300) //
 
-            val intent=Intent(this,tabActivity::class.java)
+            val intent=Intent(this,RankingActivity::class.java)
             startActivity(intent)
         }
 
+        val MyPageBtn=findViewById<Button>(R.id.mypagebtn)
+        MyPageBtn.setOnClickListener {
+
+            var intent=Intent(this,MyPageActivity::class.java)
+            startActivity(intent)
+
+        }
 
     }
 

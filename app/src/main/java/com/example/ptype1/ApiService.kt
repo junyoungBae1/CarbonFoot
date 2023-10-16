@@ -7,7 +7,8 @@ data class ResponseDTO(
     var name: String? = null,
     var email:String? = null,
     var password:String? = null,
-    var phonenum: String? = null
+    var phonenum: String? = null,
+    var token : String? =null
 
 )
 
@@ -17,7 +18,9 @@ interface ApiService {
     fun getRequest(@Query("name") name: String): Call<ResponseDTO>
 
     @GET("user/logout")
-    fun getLogoutRequest(): Call<Void>
+    fun getLogoutRequest(
+        @Header("authorization") token: String
+    ): Call<Void>
 
     //FormData
     //UrlEncoded
@@ -25,7 +28,7 @@ interface ApiService {
     @POST("user/login")
     fun postLoginRequest(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
     ): Call<ResponseDTO>
 
     //FormData

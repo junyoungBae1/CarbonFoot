@@ -112,6 +112,17 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/regButton"
+            style="@style/parent"
+            android:layout_marginTop="20dp"
+            android:onClick="onLoginClick"
+            android:text="로그아웃"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/green1"
+            android:textSize="15sp" />
+
         <View style="@style/proifleDetailsView" />
 
 
