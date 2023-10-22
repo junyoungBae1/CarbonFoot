@@ -43,8 +43,8 @@ class MenuActivity: AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+        val userName= MyApp.prefs.getString("userName",null)
 
-        val userName=intent.getStringExtra("menu_name")
         getSupportActionBar()?.setTitle(userName+"님")
 
         val cardView1=findViewById<View>(R.id.card1)
@@ -171,7 +171,7 @@ class MenuActivity: AppCompatActivity()  {
         val MyPageBtn=findViewById<Button>(R.id.mypagebtn)
         MyPageBtn.setOnClickListener {
 
-            var intent=Intent(this,MyPageActivity::class.java)
+            val intent=Intent(this,MyPageActivity::class.java)
             startActivity(intent)
 
         }

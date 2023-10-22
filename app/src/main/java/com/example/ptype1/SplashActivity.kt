@@ -12,9 +12,22 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }, 3000)
+            if(isLoggedIn()) {
+                startActivity(Intent(this, MenuActivity::class.java))
+                finish()
+            }
+            else{
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }, 2000)
+        
+        
+
+    }
+
+    private fun isLoggedIn(): Boolean {
+        return MyApp.prefs.containsString("jwt_token")
 
     }
 }

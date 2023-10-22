@@ -6,28 +6,43 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MyPageActivity : AppCompatActivity() {
 
-    private lateinit var logoutBtn : TextView
+    lateinit var logoutBtn : TextView
+    private lateinit var retrofit: Retrofit
+    private lateinit var apiService: ApiService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
 
-        val handler = android.os.Handler()
-        val sharedPreferences = getSharedPreferences("MyAppPrefs", Activity.MODE_PRIVATE)
+        retrofit = Retrofit.Builder() //retrofit 정의
+            .baseUrl("http://ec2-13-125-13-127.ap-northeast-2.compute.amazonaws.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
-        val sharedPref=getSharedPreferences("prefName", Activity.MODE_PRIVATE)
-        val jwt_token=sharedPref.getString("jwt_token",null)
+        apiService=retrofit.create(ApiService::class.java)
+
+
+        val handler = android.os.Handler()
+        logoutBtn=findViewById(R.id.logoutBtn)
+        //val sharedPref=getSharedPreferences("prefName", Activity.MODE_PRIVATE)
+        val jwt_token=MyApp.prefs.getString("jwt_token",null)
 
         if (jwt_token!=null){
-            val userName=intent.getStringExtra("username")
-            val userEmail=intent.getStringExtra("useremail")
-            val userPhone=intent.getStringExtra("userphone")
+            val userName= MyApp.prefs.getString("userName",null)
+            val userEmail=MyApp.prefs.getString("userEmail",null)
+            val userPhone=MyApp.prefs.getString("userPhone",null)
             //val userPw=intent.getStringExtra("userpassword")
 
             val MyPageUser=findViewById<TextView>(R.id.nameMyPage)
@@ -53,21 +68,43 @@ class MyPageActivity : AppCompatActivity() {
             val builder=AlertDialog.Builder(this)
             builder.setTitle("alarm").setMessage("로그아웃 하시겠습니까?").
                     setPositiveButton("YES",DialogInterface.OnClickListener{ dialogInterface: DialogInterface, i: Int ->
-                     Toast.makeText(this,"로그아웃 되었습니다",Toast.LENGTH_LONG).show()
+                        val server=apiService.PostLogoutRequest("Bearer $jwt_token")
 
-                        val editor = sharedPreferences.edit()
-                        editor.remove("jwt_token")
-                        editor.apply()
+                        server.enqueue(object : Callback<Void> {
+                            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                                if (response.isSuccessful) {
+                                    // 응답 성공 처리
+                                    MyApp.prefs.removeString("jwt_token")
+                                    MyApp.prefs.removeString("userName")
+                                    MyApp.prefs.removeString("userEmail")
+                                    MyApp.prefs.removeString("userPhone")
 
-                        val intent= Intent(this,MainActivity::class.java)
-                        startActivity(intent)
+                                    Toast.makeText(this@MyPageActivity,"로그아웃 되었습니다",Toast.LENGTH_LONG).show()
+                                    val intent= Intent(this@MyPageActivity,MainActivity::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    // 서버 응답 오류 처리
+
+                                    Toast.makeText(this@MyPageActivity,"로그인 세션 만료.",Toast.LENGTH_LONG).show()
+                                    val intent=Intent(this@MyPageActivity,MainActivity::class.java)
+                                    startActivity(intent)
+
+                                    val errorBody = response.errorBody()?.string()
+                                    Log.d("whyloginerror","$errorBody")
+                                    Log.d("errorCode","$response.code()")
+                                    Log.d("tokken?",jwt_token)
+                                }
+                            }
+                            override fun onFailure(call: Call<Void>, t: Throwable) {
+                                // 네트워크 오류 처리
+                                Toast.makeText(this@MyPageActivity, "네트워크 오류 발생", Toast.LENGTH_SHORT).show()
+                            }
+                        })
 
                     }).setNegativeButton("NO",DialogInterface.OnClickListener { dialogInterface, i ->  })
 
             builder.create()
             builder.show()
-
-
         }
 
     }

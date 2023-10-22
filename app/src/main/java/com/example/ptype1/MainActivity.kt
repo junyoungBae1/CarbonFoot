@@ -3,6 +3,7 @@ package com.example.ptype1
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             val id=idEditText.text.toString()
             val password=passwordEditText.text.toString()
 
-            val server=apiService.postLoginRequest(id,password)
+           /* val server=apiService.postLoginRequest(id,password)
 
 
             server.enqueue(object :  Callback<ResponseDTO> {
@@ -65,33 +66,35 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity,"로그인 성공", Toast.LENGTH_LONG).show()
 
                         val userResponse=response.body()
-                        val useremail=userResponse?.email
-                        val username=userResponse?.name
-                        val userphone=userResponse?.phonenum
-                        val userpassword=userResponse?.password
+                        var userTotalData= userResponse?.user
 
+                        val useremail= userTotalData?.email
+                        val username=userTotalData?.name
+                        val userphone=userTotalData?.phonenum
+                        //val userpassword=userResponse?.password
+
+                        Log.d("sfsfsfsfsf", userResponse.toString())
                         val token=userResponse?.token
+
+
                         if(token!=null){
-                            val sharedPref= getSharedPreferences("prefName", Activity.MODE_PRIVATE)
-                            val editor=sharedPref.edit()
-                            editor.putString("jwt_token",token)
-                            editor.apply()
+                            MyApp.prefs.setString("jwt_token",token)
+
+                            MyApp.prefs.setString("userName",username)
+                            MyApp.prefs.setString("userEmail",useremail)
+                            MyApp.prefs.setString("userPhone",userphone)
+                            //MyApp.prefs.setString("userPassword",token)
+                            Log.d("tokkkkkkkkken",token)
 
                         }
-
-
-                        intent.putExtra("username",username)
-                        intent.putExtra("useremail",useremail)
-                        intent.putExtra("userphone",userphone)
-                        intent.putExtra("userpassword",userpassword)
-
-                        intent.putExtra("menu_name",username)
 
 
                         var intent= Intent(this@MainActivity,MenuActivity::class.java)
                         startActivity(intent)
 
-                    } else {
+                    } else { //로그인 안된코든가
+                        Toast.makeText(this@MainActivity,"계정을 다시 확인해주세요",Toast.LENGTH_LONG).show()
+
                         val errorBody = response.errorBody()?.string()
                         Log.d("로그인이안된듯?","$errorBody")
                         Log.d("errorCode","$response.code()")
@@ -102,7 +105,10 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity,"unknownError",Toast.LENGTH_LONG).show()
                     Log.d("NetworkError", "네트워크 오류: ${t.message}")
                 }
-            })
+            })*/
+
+            var intent= Intent(this@MainActivity,MenuActivity::class.java)
+            startActivity(intent)
 
         }
 

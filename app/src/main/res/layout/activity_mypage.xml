@@ -113,7 +113,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/regButton"
+            android:id="@+id/logoutBtn"
             style="@style/parent"
             android:layout_marginTop="20dp"
             android:onClick="onLoginClick"

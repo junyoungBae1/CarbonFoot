@@ -1,11 +1,13 @@
 package com.example.ptype1
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,6 +49,17 @@ class RegisterActivity : AppCompatActivity(){
             val password = passwordEditText.text.toString()
             val checkPassword = checkPasswordText.text.toString()
             val phonenum = phoneNumberEditText.text.toString()
+
+            if (checkPassword!=password){
+                val builder=AlertDialog.Builder(this)
+                builder.setTitle("Error").setMessage("비밀번호 확인이 올바르지 않습니다").
+                        setPositiveButton("확인",DialogInterface.OnClickListener
+                        { dialogInterface, i ->  })
+
+                builder.create()
+                builder.show()
+
+            }
 
 
             val server=apiService.postRegisterRequest(username,email,password,phonenum)

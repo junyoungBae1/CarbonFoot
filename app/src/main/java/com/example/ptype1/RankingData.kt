@@ -1,3 +1,5 @@
 package com.example.ptype1
 
-data class RankingData(val rank:Int,val name:String, val point:Int,val imageResId: Int? = null )
+import android.widget.ImageView
+
+data class RankingData(val rank:Number,val name:String, val point:Number ,val getImgres:Int)

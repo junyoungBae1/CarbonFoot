@@ -79,7 +79,7 @@
                         <EditText
                             android:id="@+id/editTextPassword"
                             style="@style/modifiedEditText"
-                            android:inputType="phone"
+                            android:inputType="textPassword"
                             android:maxLines="1"
                             android:hint="바밀번호"/>
                     </com.google.android.material.textfield.TextInputLayout>

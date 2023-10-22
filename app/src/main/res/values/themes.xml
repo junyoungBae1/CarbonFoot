@@ -117,4 +117,5 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_alignParentBottom">true</item>
     </style>
+
 </resources>

@@ -1,15 +1,28 @@
 package com.example.ptype1
 
+import com.google.gson.annotations.SerializedName
 import retrofit2.Call
 import retrofit2.http.*
 
 data class ResponseDTO(
-    var name: String? = null,
-    var email:String? = null,
-    var password:String? = null,
-    var phonenum: String? = null,
-    var token : String? =null
+    @SerializedName("user")
+    var user : UserData,
+    @SerializedName("token")
+    var token : String? =null,
+    @SerializedName("userList")
+    var userList:MutableList<UserData>? =null
+)
 
+data class ScoreDTO(
+    @SerializedName("username")
+    var username : String,
+    @SerializedName("score")
+    var score : Number,
+)
+
+data class FoodDTO(
+    @SerializedName("totalEmission")
+    var totalEmission : Number
 )
 
 interface ApiService {
@@ -17,9 +30,15 @@ interface ApiService {
     @GET("/retrofit/get")
     fun getRequest(@Query("name") name: String): Call<ResponseDTO>
 
-    @GET("user/logout")
-    fun getLogoutRequest(
-        @Header("authorization") token: String
+    @GET("/score/getScore")
+    fun getScoreRequest(
+
+    ) :Call<List<ScoreDTO>>
+
+    @POST("user/logout")
+    @Headers("Content-Type: application/json")
+    fun PostLogoutRequest(
+        @Header("Authorization") token: String
     ): Call<Void>
 
     //FormData
@@ -49,6 +68,12 @@ interface ApiService {
         @Path("id") id: String,
         @Field("content") content: String
     ): Call<ResponseDTO>
+
+    @FormUrlEncoded
+    @POST("calculator/calculateEmission")
+    fun postFoodRequest(
+        @Field("foodname") foodname: String
+    ): Call<FoodDTO>
 
     @DELETE("/retrofit/delete/{id}")
     fun deleteRequest(@Path("id") id: String): Call<ResponseDTO>
