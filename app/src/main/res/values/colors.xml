@@ -33,5 +33,6 @@
     <color name="click_menu">#E1DFDF</color>
 
     <color name="profileAccentColor">#F7F7F7</color>
+    <color name="myRankingColor">#F6EC94</color>
 
 </resources>

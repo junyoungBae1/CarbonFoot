@@ -4,7 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="사진을 누르면 상세정보를 볼 수 있습니다."
+        android:layout_gravity="center"
+        android:textColor="@color/black"/>
 
 
     <androidx.cardview.widget.CardView
@@ -12,33 +22,42 @@
         android:layout_height="300dp"
         app:cardCornerRadius="30dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="10dp">
 
     <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/cameraResultImg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/kingminseok" />
+        android:src="@drawable/kimbap" />
+
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:text="총 탄소량 결과입니다"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/FoodResultMainText"
+        android:text="김밥"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:gravity="center"/>
 
+
+
     <androidx.cardview.widget.CardView
         android:layout_width="330dp"
-        android:layout_height="160dp"
+        android:layout_height="150dp"
         app:cardCornerRadius="30dp"
+        android:id="@+id/cardCo2Result"
         android:layout_gravity="center"
         android:layout_marginTop="10dp">
+
 
         <GridLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:orientation= "horizontal"
             android:columnCount="3"
             android:rowCount="2">
 
@@ -51,7 +70,7 @@
                 android:layout_gravity="center"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/Co2"
                 android:layout_row="0"
                 android:layout_column="0"
@@ -59,76 +78,122 @@
 
             <ImageView
                 android:id="@+id/tree"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_row="0"
                 android:layout_column="1"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/carimg" />
+                android:layout_marginTop="10dp"
+                android:src="@drawable/treeimg" />
 
             <ImageView
-                android:src="@drawable/treeimg"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="30dp"
+                android:src="@drawable/carimg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/mobileImageView"
                 android:layout_gravity="center"
                 android:layout_row="0"
                 android:layout_column="2" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="110dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="60dp"
-                android:id="@+id/Co2Text"
-                android:gravity="center"
-                android:text="200 (gCo2e)"
-                android:textStyle="bold"
-                android:textSize="13sp"
                 android:layout_row="1"
-                android:layout_column="0" />
+                android:layout_column="0"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/Co2Text"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="12sp" />
 
 
-            <TextView
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="110dp"
                 android:layout_height="60dp"
                 android:layout_row="1"
                 android:layout_column="1"
-                android:gravity="center"
-                android:text="약 0.025그루\n(소나무)"
-                android:textSize="12sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/treeText"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="110dp"
                 android:layout_height="60dp"
-                android:layout_marginBottom="40dp"
                 android:layout_row="1"
                 android:layout_column="2"
-                android:gravity="center"
-                android:text="약 0.5 km "
-                android:textStyle="bold" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="110dp"
+                    android:layout_height="60dp"
+                    android:id="@+id/carText"
+                    android:gravity="center_horizontal"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
         </GridLayout>
 
     </androidx.cardview.widget.CardView>
 
-
-    <Button
-        android:layout_marginTop="20dp"
-        android:id="@+id/RegFoodDataBtn"
-        style="@style/loginButton"
+    <LinearLayout
+        android:layout_width="340dp"
         android:layout_gravity="center_horizontal"
-        android:text="음식 저장하기"
-        android:textColor="#FFF" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+    >
+
+        <Button
+            android:id="@+id/calculateBtn"
+            style="@style/loginButton"
+            android:layout_width="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="계산하기"
+            android:layout_marginRight="30dp"
+            android:textColor="#FFF" />
+
+        <Button
+            android:id="@+id/RegFoodDataBtn"
+            style="@style/loginButton"
+            android:layout_width="120dp"
+
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="음식 저장하기"
+            android:textColor="#FFF" />
+
+    </LinearLayout>
+
+
+
 
     <TextView
-        android:id="@+id/DetailFoodBtn"
+        android:id="@+id/FoodDetectionError"
         style="@style/parent"
-        android:layout_marginTop="20dp"
         android:onClick="onLoginClick"
-        android:text="탄소 세부사항 보기"
+        android:text="직접 음식 입력하기"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/green1"

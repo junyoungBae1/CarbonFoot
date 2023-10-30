@@ -26,17 +26,21 @@ class MyPageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
 
+        logoutBtn=findViewById(R.id.logoutBtn)
+        val handler = android.os.Handler()
+        // 버튼 및 핸들러 사전 초기화
+        val defaultColor = Color.parseColor("#4CAF50") //버튼 누르면 글짜 색 바뀌게끔
+
+
         retrofit = Retrofit.Builder() //retrofit 정의
             .baseUrl("http://ec2-13-125-13-127.ap-northeast-2.compute.amazonaws.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         apiService=retrofit.create(ApiService::class.java)
+        //Retrofit 정의
 
-
-        val handler = android.os.Handler()
-        logoutBtn=findViewById(R.id.logoutBtn)
-        //val sharedPref=getSharedPreferences("prefName", Activity.MODE_PRIVATE)
+        // token을 호출하고 token이 유효하면 userData 가져오기
         val jwt_token=MyApp.prefs.getString("jwt_token",null)
 
         if (jwt_token!=null){
@@ -54,8 +58,9 @@ class MyPageActivity : AppCompatActivity() {
             MyPagePhone.text=userPhone
         }
 
+        //여기까지 userDataSet가져오기
 
-        val defaultColor = Color.parseColor("#4CAF50") //버튼 누르면 글짜 색 바뀌게끔
+
         logoutBtn.setOnClickListener {//등록 버튼 동작
 
             var newColor= Color.parseColor("#2C9430")
@@ -65,6 +70,7 @@ class MyPageActivity : AppCompatActivity() {
                 logoutBtn.setTextColor(defaultColor)
             }, 300) //버튼 누르면 글 색 바뀜
 
+            //로그아웃 하면 token 반환하도록 하는
             val builder=AlertDialog.Builder(this)
             builder.setTitle("alarm").setMessage("로그아웃 하시겠습니까?").
                     setPositiveButton("YES",DialogInterface.OnClickListener{ dialogInterface: DialogInterface, i: Int ->
@@ -106,6 +112,8 @@ class MyPageActivity : AppCompatActivity() {
             builder.create()
             builder.show()
         }
+
+        //여기까지 logout
 
     }
 }

@@ -1,8 +1,11 @@
 package com.example.ptype1
 
 import com.google.gson.annotations.SerializedName
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.util.Date
 
 data class ResponseDTO(
     @SerializedName("user")
@@ -24,6 +27,22 @@ data class FoodDTO(
     @SerializedName("totalEmission")
     var totalEmission : Number
 )
+
+data class noticeDTO(
+    @SerializedName("data")
+    var data : MutableList<CommunityData>
+)
+
+data class checkingDTO(
+    @SerializedName("matchResult")
+    var match : Int
+)
+
+data class ImageDTO(
+    @SerializedName("images_data")
+    var images_data : ImageData
+)
+
 
 interface ApiService {
 
@@ -77,4 +96,47 @@ interface ApiService {
 
     @DELETE("/retrofit/delete/{id}")
     fun deleteRequest(@Path("id") id: String): Call<ResponseDTO>
+
+
+    @Multipart
+    @POST("image/upload")
+    fun postFoodCo2Request(
+        @Part("email") email: RequestBody,
+        @Part("foodname") foodname: RequestBody,
+        @Part("totalEmission") totalEmission: RequestBody,
+        @Part("etc") etc: RequestBody,
+        @Part img: MultipartBody.Part
+    ): Call<Void>
+
+    @FormUrlEncoded
+    @POST("image/find")
+    fun postDateRequest(
+        @Field("email") email:String,
+        @Field("date") date:String
+    ):Call<ImageDTO>
+
+    @FormUrlEncoded
+    @POST("noticeBoard/getBoard")
+    fun postGetBoard(
+        @Field("noticetoken") token : String,
+        @Field("userEmail") email : String
+    ):Call<checkingDTO>
+
+    @FormUrlEncoded
+    @POST("noticeBoard/create")
+    fun postCreate(
+        @Field("title") title : String,
+        @Field("content") content : String,
+        @Field("writer") writer : String,
+        @Field("userEmail") email : String
+    ):Call<Void>
+
+    @GET("/noticeBoard/read")
+    fun getRead(
+
+    ) :Call<noticeDTO>
+
+
+
+
 }

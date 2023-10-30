@@ -40,8 +40,8 @@
             <include android:id="@+id/card3"
                 layout="@layout/activity_cardview" />
 
-            <!--<include android:id="@+id/card4"
-                layout="@layout/activity_cardview" />-->
+            <include android:id="@+id/card4"
+                layout="@layout/activity_cardview" />
 
         </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="right"
-            android:layout_marginTop="70dp"
+
             android:layout_marginRight="10dp"
             android:text="My"
             android:gravity="center"

@@ -31,17 +31,21 @@ class RegisterActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
+
+        //회원 가입 텍스트 입력창 선언
         usernameEditText = findViewById(R.id.editTextName)
         idEditText=findViewById(R.id.editTextID)
         passwordEditText = findViewById(R.id.editTextPassword)
         checkPasswordText=findViewById(R.id.editTextPasswordCheck)
         phoneNumberEditText = findViewById(R.id.editTextMobile)
         signupButton = findViewById(R.id.RegisterButton)
+        //회원 가입 텍스트 입력창 선언
 
 
         retrofit = Retrofit.Builder().baseUrl("http://ec2-13-125-13-127.ap-northeast-2.compute.amazonaws.com/")
                 .addConverterFactory(GsonConverterFactory.create()).build()
         apiService=retrofit.create(ApiService::class.java)
+        //retrofit 선언
 
         signupButton.setOnClickListener {
             val username = usernameEditText.text.toString()
@@ -59,7 +63,7 @@ class RegisterActivity : AppCompatActivity(){
                 builder.create()
                 builder.show()
 
-            }
+            } //이거는 비밀번호 확인하는 과정
 
 
             val server=apiService.postRegisterRequest(username,email,password,phonenum)
@@ -69,9 +73,6 @@ class RegisterActivity : AppCompatActivity(){
                         Toast.makeText(this@RegisterActivity, "회원가입 성공", Toast.LENGTH_LONG).show()
 
                         val intent=Intent(this@RegisterActivity,MainActivity::class.java)
-                        //val regData=Information(username,email,password,phonenum)
-                        //val (username,email,password,phonenum)=regData
-                        //intent.putExtra("username",username)
                         startActivity(intent)
                     }else{
                         val errorBody = response.errorBody()?.string()

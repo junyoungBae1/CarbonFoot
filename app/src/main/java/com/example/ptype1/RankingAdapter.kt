@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RankingAdapter(val context: Context, val List:MutableList<RankingData>) : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
+class RankingAdapter(val context: Context, val List: MutableList<RankingData>) : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingAdapter.ViewHolder {
         val v =LayoutInflater.from(parent.context).inflate(R.layout.rank_item,parent,false)
 
@@ -34,9 +34,13 @@ class RankingAdapter(val context: Context, val List:MutableList<RankingData>) : 
             rv_score.text= item.point.toString()
             rv_name.text=item.name
 
-            val rv_image_num=item.getImgres
-            if (rv_image_num<=3){
+
+            if (item.getImgres==1){
                 rv_image.setImageResource(R.drawable.king)
+            }else if (item.getImgres==2){
+                rv_image.setImageResource(R.drawable.silverking)
+            }else if (item.getImgres==3){
+                rv_image.setImageResource(R.drawable.bronzeking)
             }else{
                 rv_image.setImageResource(R.drawable.white)
             }

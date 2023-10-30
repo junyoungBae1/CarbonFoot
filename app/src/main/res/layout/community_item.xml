@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_community"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="5dp"
+        app:cardBackgroundColor="@color/whiteTextColor"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/community_Text"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="ddfssfs"/>
+
+                <TextView
+                    android:id="@+id/community_Writer"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="dbstjdwns"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
+
+    <!-- app:cardBackgroundColor="@color/whiteTextColor"
+        app:cardCornerRadius="16dp"
+
+        <ImageView
+            android:id="@+id/MenuImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:maxWidth="80dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/android_developer"/>-->

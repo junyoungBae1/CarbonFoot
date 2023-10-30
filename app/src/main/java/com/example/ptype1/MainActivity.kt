@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             val id=idEditText.text.toString()
             val password=passwordEditText.text.toString()
 
-           /* val server=apiService.postLoginRequest(id,password)
+            val server=apiService.postLoginRequest(id,password)
 
 
             server.enqueue(object :  Callback<ResponseDTO> {
@@ -105,10 +105,10 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity,"unknownError",Toast.LENGTH_LONG).show()
                     Log.d("NetworkError", "네트워크 오류: ${t.message}")
                 }
-            })*/
+            })
 
-            var intent= Intent(this@MainActivity,MenuActivity::class.java)
-            startActivity(intent)
+            //var intent= Intent(this@MainActivity,MenuActivity::class.java)
+            //startActivity(intent)
 
         }
 

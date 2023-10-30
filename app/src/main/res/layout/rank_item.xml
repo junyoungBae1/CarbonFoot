@@ -37,13 +37,14 @@
             <LinearLayout
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <TextView
                     android:id="@+id/nameText"
-                    android:layout_width="270dp"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:text="Name:1"
                     android:textSize="18dp"
                     android:layout_marginLeft="30dp"
@@ -52,11 +53,11 @@
 
                 <TextView
                     android:id="@+id/scoreText"
-                    android:layout_width="60dp"
+                    android:gravity="center_vertical"
+                    android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:text="Score : 1"
                     android:textSize="15dp"
-                    android:layout_marginLeft="30dp"
                     android:layout_weight="1"/>
 
 
@@ -64,7 +65,7 @@
 
             <ImageView
                 android:id="@+id/isking"
-                android:layout_width="30dp"
+                android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/king"/>
 
