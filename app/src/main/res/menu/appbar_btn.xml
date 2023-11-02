@@ -1,0 +1,13 @@
+<menu  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/rewrite_btn"
+        android:title="수정하기"
+        app:actionViewClass="com.example.ptype1.CustomTextView"
+        app:showAsAction="withText"/>
+
+    <item android:id="@+id/delete_btn"
+        android:title="삭제하기"
+        app:actionViewClass="com.example.ptype1.CustomTextView"
+        app:showAsAction="withText"/>
+</menu>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 원본 Drawable -->
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/whiteTextColor" /> <!-- 곡선 배경색 -->
+            <stroke
+                android:width="1dp"
+                android:color="@color/menuColor" /> <!-- 테두리 선의 색상 -->
+            <corners android:radius="5dp" /> <!-- 곡선 모서리 반지름 값 -->
+        </shape>
+    </item>
+</layer-list>

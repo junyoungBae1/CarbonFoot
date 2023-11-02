@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    app:cardCornerRadius="15dp"
+    android:layout_marginTop="18dp"
+    android:id="@+id/TeamPLANB">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:weightSum="12">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="4"
+            android:background="@color/colorPrimaryDark" />
+
+        <TextView
+            style="@style/viewParent.headerText.NoMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Made by PLAN B TEAM"
+            android:textAlignment="center"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="4"
+            android:background="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+</LinearLayout>
+<!--<androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/whiteTextColor"
+        app:cardCornerRadius="16dp">
+        <ImageView
+            android:id="@+id/MenuImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:maxWidth="80dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/android_developer"/>
+    </androidx.cardview.widget.CardView>-->
+<!--
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal"
+    app:cardCornerRadius="15dp"
+    android:layout_marginTop="18dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/MenuImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:maxWidth="40dp"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/cameraimg"/>
+
+
+
+        <TextView
+            android:id="@+id/ContentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Android Developer"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/miniTitle"
+            android:textSize="18sp"
+            android:layout_marginLeft="20dp" />
+
+          <TextView
+                android:id="@+id/DetailText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Explore the power of android \napplication development"
+                android:textColor="@color/miniDescription"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:maxLines="3"
+                android:layout_marginBottom="10dp" />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>-->
+
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="2dp"
+            android:minHeight="100dp"
+            app:cardBackgroundColor="@color/whiteBodyColor"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="16dp">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/img_plumping"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:elevation="13dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginLeft="55dp">
+
+                <TextView
+                    android:id="@+id/ContentText"
+                    android:text="menu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/DetailText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="detail"
+                    android:textSize="12sp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>-->

@@ -8,14 +8,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/TopRankView"
     android:orientation="vertical">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/leftBtn"
-            android:layout_width="60dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:text="〈"
             android:textStyle="bold"
@@ -24,15 +27,15 @@
 
         <TextView
             android:id="@+id/DayText"
-            android:layout_width="290dp"
-            android:layout_height="40dp"
+            android:layout_width="220dp"
+            android:layout_height="30dp"
             android:gravity="center"
             android:text="2023-10-25"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/rightBtn"
-            android:layout_width="60dp"
+            android:layout_width="30dp"
             android:layout_height="match_parent"
             android:text="〉"
             android:textStyle="bold"
@@ -42,14 +45,16 @@
     </LinearLayout>
 
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginBottom="10dp"
         android:weightSum="12">
 
         <View
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="1dp"
             android:layout_weight="3"
             android:background="@color/green1" />
@@ -65,13 +70,20 @@
     <include android:id="@+id/Num3Rank"
         layout="@layout/toprank_item" />-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/foodView"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
-        android:layout_height="610dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/foodView"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="610dp"/>
+
+    </androidx.viewpager.widget.ViewPager>
+
+
 
     <Button
         android:layout_width="120dp"

@@ -1,13 +1,18 @@
 package com.example.ptype1
 
+import android.media.Image
 import com.google.gson.annotations.SerializedName
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 import java.util.Date
 
 data class ResponseDTO(
+    val message: String?,
+    val loginSuccess: Boolean,
     @SerializedName("user")
     var user : UserData,
     @SerializedName("token")
@@ -34,13 +39,16 @@ data class noticeDTO(
 )
 
 data class checkingDTO(
-    @SerializedName("matchResult")
-    var match : Int
+    @SerializedName("data")
+    var data : CommunityData
+
 )
 
 data class ImageDTO(
-    @SerializedName("images_data")
-    var images_data : ImageData
+    val success: Boolean,
+    val message: String,
+    @SerializedName("images_data_count") val imagesDataCount: Int,
+    @SerializedName("images_data") val imagesData: List<ImageData>?
 )
 
 
@@ -129,6 +137,20 @@ interface ApiService {
         @Field("content") content : String,
         @Field("writer") writer : String,
         @Field("userEmail") email : String
+    ):Call<Void>
+
+    @FormUrlEncoded
+    @POST("noticeBoard/update")
+    fun postUpdate(
+        @Field("title") title : String,
+        @Field("content") content : String,
+        @Field("noticetoken") noticetoken : String
+    ):Call<Void>
+
+    @FormUrlEncoded
+    @POST("noticeBoard/delete")
+    fun postDelete(
+        @Field("noticetoken") noticetoken : String
     ):Call<Void>
 
     @GET("/noticeBoard/read")

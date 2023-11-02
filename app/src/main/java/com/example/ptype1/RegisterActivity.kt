@@ -2,6 +2,8 @@ package com.example.ptype1
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -54,7 +56,12 @@ class RegisterActivity : AppCompatActivity(){
             val checkPassword = checkPasswordText.text.toString()
             val phonenum = phoneNumberEditText.text.toString()
 
+
             if (checkPassword!=password){
+                checkPasswordText.backgroundTintList = ColorStateList.valueOf(Color.RED)
+                //checkPasswordText.setHint("비밀번호를 올바르게 입력해주세요") //비밀번호 확인창 경고
+
+
                 val builder=AlertDialog.Builder(this)
                 builder.setTitle("Error").setMessage("비밀번호 확인이 올바르지 않습니다").
                         setPositiveButton("확인",DialogInterface.OnClickListener
@@ -62,6 +69,8 @@ class RegisterActivity : AppCompatActivity(){
 
                 builder.create()
                 builder.show()
+
+                return@setOnClickListener
 
             } //이거는 비밀번호 확인하는 과정
 
@@ -71,6 +80,7 @@ class RegisterActivity : AppCompatActivity(){
                 override fun onResponse(call: Call<ResponseDTO>, response: Response<ResponseDTO>) {
                     if(response.isSuccessful) {
                         Toast.makeText(this@RegisterActivity, "회원가입 성공", Toast.LENGTH_LONG).show()
+                        Log.d("usernameisssss",username)
 
                         val intent=Intent(this@RegisterActivity,MainActivity::class.java)
                         startActivity(intent)

@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                         var userTotalData= userResponse?.user
 
                         val useremail= userTotalData?.email
-                        val username=userTotalData?.name
+                        val username=userTotalData?.username
                         val userphone=userTotalData?.phonenum
                         //val userpassword=userResponse?.password
 
@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                             MyApp.prefs.setString("userEmail",useremail)
                             MyApp.prefs.setString("userPhone",userphone)
                             //MyApp.prefs.setString("userPassword",token)
-                            Log.d("tokkkkkkkkken",token)
+                            Log.d("userrrr",response.body().toString())
 
                         }
 

@@ -33,7 +33,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="150dp"
-                    android:src="@drawable/cofoot"/>
+                    android:src="@drawable/cofoot" />
 
 
                 <!--<ImageView
@@ -95,62 +95,16 @@
                 android:layout_marginTop="20dp"
                 android:onClick="onLoginClick"
                 android:text="계정이 없으신가요?"
-                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/green1"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:weightSum="12">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="3"
-                    android:background="@color/colorPrimaryDark" />
-
-                <TextView
-                    style="@style/viewParent.headerText.NoMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:text="소셜 로그인"
-                    android:textAlignment="center"
-                    android:textSize="12sp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="3"
-                    android:background="@color/colorPrimaryDark" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_facebook" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:src="@drawable/ic_google_plus" />
-            </LinearLayout>
-
-
+            <include layout="@layout/team_plan_b" />
         </LinearLayout>
+
+
     </ScrollView>
     <!--<View
         android:layout_marginTop="20dp"

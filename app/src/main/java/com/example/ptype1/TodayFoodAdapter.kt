@@ -39,4 +39,8 @@ class TodayFoodAdapter(val context: Context, val List:MutableList<TodayFoodData>
 
         }
     }
+
+    fun ClearData(List:MutableList<TodayFoodData>){
+        notifyDataSetChanged()
+    }
 }

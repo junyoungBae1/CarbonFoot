@@ -3,6 +3,7 @@ package com.example.ptype1
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,6 +33,8 @@ class CommunityActivity : AppCompatActivity() {
         val token=MyApp.prefs.getString("jwt_token",null)
         val userName=MyApp.prefs.getString("userName",null)
 
+        getSupportActionBar()?.setTitle("자유게시판")//appbar 형성
+
 
         writeBtn=findViewById(R.id.comWriteBtn)
 
@@ -52,13 +55,15 @@ class CommunityActivity : AppCompatActivity() {
                     Log.d("responseBodyyyy",response.body().toString())
 
                     for(i in response.body()?.data!!){
-                        items.add(CommunityData(i.noticeToken,i.title,i.content,i.writer,i.userEmail,i.date))
+                        items.add(CommunityData(i.noticeToken,i.title,i.content,i.writer,i.userEmail,i.date,i.unknown,i.matchResult))
                     }
 
 
                     val recyclerview=findViewById<RecyclerView>(R.id.Community_View)
-                    val rvAdapter=CommunityAdapter(baseContext,items)
+                    val rvAdapter=CommunityAdapter(baseContext,items.asReversed())
                     recyclerview.adapter=rvAdapter
+
+
                     //rvAdapter.updateData(items)
                     recyclerview.layoutManager= LinearLayoutManager(this@CommunityActivity)
 
@@ -90,5 +95,15 @@ class CommunityActivity : AppCompatActivity() {
 
 
 
+    }
+    override fun onKeyDown(keyCode:Int, event: KeyEvent?):Boolean{
+        if(keyCode== KeyEvent.KEYCODE_BACK){
+            val intent = Intent(this, MenuActivity::class.java) // TargetActivity로 이동하려는 Intent 생성
+            startActivity(intent) // Intent를 시작하여 TargetActivity로 이동
+            finish() // 현재 액티비티를 종료하고 이전 액티비티로 돌아감
+            return true
+        }
+
+        return super.onKeyDown(keyCode, event)
     }
 }

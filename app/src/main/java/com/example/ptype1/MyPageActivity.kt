@@ -25,6 +25,7 @@ class MyPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage)
+        getSupportActionBar()?.setTitle("나의 정보")//appbar 형성
 
         logoutBtn=findViewById(R.id.logoutBtn)
         val handler = android.os.Handler()

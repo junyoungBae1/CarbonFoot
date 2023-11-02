@@ -7,4 +7,6 @@ data class CommunityData(val noticeToken: String?,
                          val content: String?,
                          val writer: String?,
                          val userEmail:String?,
-                         val date : String?)
+                         val date : String?,
+                         val unknown : Int =0,
+                         val matchResult : Int)

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 
 class RankingAdapter(val context: Context, val List: MutableList<RankingData>) : RecyclerView.Adapter<RankingAdapter.ViewHolder>() {
@@ -28,21 +29,34 @@ class RankingAdapter(val context: Context, val List: MutableList<RankingData>) :
             val rv_rank=itemView.findViewById<TextView>(R.id.rankingText)
             val rv_score=itemView.findViewById<TextView>(R.id.scoreText)
             val rv_name=itemView.findViewById<TextView>(R.id.nameText)
-            val rv_image=itemView.findViewById<ImageView>(R.id.isking)
 
-            rv_rank.text= item.rank.toString()
             rv_score.text= item.point.toString()
             rv_name.text=item.name
 
 
-            if (item.getImgres==1){
-                rv_image.setImageResource(R.drawable.king)
-            }else if (item.getImgres==2){
-                rv_image.setImageResource(R.drawable.silverking)
-            }else if (item.getImgres==3){
-                rv_image.setImageResource(R.drawable.bronzeking)
-            }else{
-                rv_image.setImageResource(R.drawable.white)
+
+            if (item.getImgres <= 3) {
+
+                // 배경 색상을 변경🥇🥈🥉
+                when (item.getImgres) {
+
+                }
+
+                // 나머지 내용
+                val params = itemView.layoutParams as ViewGroup.LayoutParams
+                params.height = 200 // 새로운 높이 설정
+                itemView.layoutParams = params
+
+                rv_rank.textSize=15f
+                rv_name.textSize = 20f // 글씨 크기를 24sp로 설정, 필요한 크기로 변경
+                rv_score.textSize = 20f
+
+                // 글씨 색상 변경
+                rv_name.setTextColor(ContextCompat.getColor(itemView.context, R.color.green2))
+                rv_score.setTextColor(ContextCompat.getColor(itemView.context, R.color.green2))
+            }
+            else{
+                rv_rank.text= item.rank.toString()
             }
 
 

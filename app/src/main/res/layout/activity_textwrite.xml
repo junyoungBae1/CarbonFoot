@@ -4,42 +4,73 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/writeTitle"
-    style="@style/parent"
-    android:layout_marginTop="10dp">
+    <LinearLayout
+        android:background="@drawable/curve_background_view2"
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/writeEditTitle"
-            style="@style/modifiedEditText"
-            android:inputType="text"
-            android:maxLines="1"
-            android:hint="제목"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/writeContent"
-        style="@style/parent"
-        android:layout_marginTop="10dp">
+
+            <EditText
+                android:background="@android:color/transparent"
+                android:id="@+id/writeEditTitle"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:hint="제목을 입력하세요"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColorHint="@color/click_menu"
+                android:paddingLeft="10dp"
+                android:textSize="16sp" />
+
+
+            <Button
+                android:id="@+id/writeRegBtn"
+                style="@style/loginButton"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:text="등록"
+                android:textColor="#FFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:weightSum="12">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="3"
+                android:background="@color/green1" />
+
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/writeEditContent"
-            android:background="@drawable/curve_background_view"
-            android:layout_height="580dp"
-            android:hint="내용"
-            android:inputType="text"
+            android:layout_width="match_parent"
+            android:layout_height="470dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:hint="내용을 입력하세요 \n(타인을 모욕하는 등의 어투는 지양해주세요!)"
             android:maxLines="20"
-            android:layout_width="380dp"
-            android:layout_gravity="center"/>
-    </com.google.android.material.textfield.TextInputLayout>
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:textColorHint="@color/click_menu" />
 
-    <Button
-        android:layout_width="120dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/writeRegBtn"
-        style="@style/loginButton"
-        android:layout_gravity="center_horizontal"
-        android:text="확인"
-        android:textColor="#FFF" />
+    </LinearLayout>
+
 
 </LinearLayout>

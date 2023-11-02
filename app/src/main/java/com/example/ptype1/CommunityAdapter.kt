@@ -33,7 +33,7 @@ class CommunityAdapter(val context: Context, val List:MutableList<CommunityData>
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
-        var click_item=itemView.findViewById<CardView>(R.id.card_community)
+        var click_item=itemView.findViewById<View>(R.id.card_community)
 
         init {
 
@@ -60,9 +60,13 @@ class CommunityAdapter(val context: Context, val List:MutableList<CommunityData>
 
             val title = itemView.findViewById<TextView>(R.id.community_Text)
             val writer = itemView.findViewById<TextView>(R.id.community_Writer)
+            val content=itemView.findViewById<TextView>(R.id.community_Content)
+            val date=itemView.findViewById<TextView>(R.id.community_Date)
 
             title.text=item.title
             writer.text=item.writer
+            content.text=item.content
+            date.text=item.date
 
         }
     }

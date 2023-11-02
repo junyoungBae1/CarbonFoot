@@ -111,10 +111,10 @@
                     <Button
                         android:id="@+id/RegisterButton"
                         style="@style/loginButton"
-                        android:text="등록하기"
+                        android:layout_width="150dp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginTop="@dimen/loginViewsMargin"
-                        />
+                        android:text="등록하기" />
 
                     <TextView
                         style="@style/parent"
@@ -129,54 +129,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:weightSum="12"
-                android:gravity="center"
-                android:layout_marginTop="30dp">
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/whiteTextColor"
-                    android:layout_weight="3"/>
-
-                <TextView
-                    style="@style/viewParent.headerText.NoMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="소셜 로그인"
-                    android:layout_weight="6"
-                    android:textSize="13sp"
-                    android:textAlignment="center"/>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="@color/whiteTextColor"
-                    android:layout_weight="3"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_facebook"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_google_plus"
-                    android:layout_marginLeft="10dp"/>
-            </LinearLayout>
+            <include layout="@layout/team_plan_b" />
 
         </LinearLayout>
     </ScrollView>

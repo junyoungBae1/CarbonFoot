@@ -37,21 +37,15 @@ import android.widget.Toast
 
 class MenuActivity: AppCompatActivity()  {
     private lateinit var requestCameraFileLauncher : ActivityResultLauncher<Intent> //카메라 런쳐 미리 선언
-    private lateinit var cardView1 : View
-    private lateinit var cardView2 : View
-    private lateinit var cardView3 : View
-    private lateinit var cardView4 : View
+    private lateinit var CameraView : View
+    private lateinit var albumView  : View
+    private lateinit var rankView  : View
+    private lateinit var communityView : View
+    private lateinit var calendarView : View
+    private lateinit var myPageView : View
     val handler = android.os.Handler() //handler 및 btn 효과 변수 초기화
 
     var initTime =0L
-    private fun btnEffect(btn: View) {
-        val defaultColor = Color.parseColor("#FFFFFF")
-        var newColor= Color.parseColor("#D1D0D0")
-        btn.setBackgroundColor(newColor)
-        handler.postDelayed({
-            btn.setBackgroundColor(defaultColor)
-        }, 300) //
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,51 +55,24 @@ class MenuActivity: AppCompatActivity()  {
 
 
         // 메뉴 layout 형성 ------------------------
-        cardView1=findViewById(R.id.card1)
-        cardView2=findViewById(R.id.card2)
-        cardView3=findViewById(R.id.card3)
-        cardView4=findViewById(R.id.card4)
-
-        val img1=cardView1.findViewById<ImageView>(R.id.MenuImage)
-        val img2=cardView2.findViewById<ImageView>(R.id.MenuImage)
-        val img3=cardView3.findViewById<ImageView>(R.id.MenuImage)
-        val img4=cardView4.findViewById<ImageView>(R.id.MenuImage)
-
-        img1.setImageResource(R.drawable.cameraimg)
-        img2.setImageResource(R.drawable.checkfootimg)
-        img3.setImageResource(R.drawable.comimg)
-        img4.setImageResource(R.drawable.communityimg)
-
-
-        val Content1 = cardView1.findViewById<TextView>(R.id.ContentText)
-        val Detail1 = cardView1.findViewById<TextView>(R.id.DetailText)
-        Content1.text="촬영하기"
-        Detail1.text="음식들의 탄소배출량을 알 수 있습니다."
-
-        val Content2 = cardView2.findViewById<TextView>(R.id.ContentText)
-        val Detail2 = cardView2.findViewById<TextView>(R.id.DetailText)
-        Content2.text="하루 탄소발자국"
-        Detail2.text="오늘의 탄소발자국은?"
-
-        val Content3 = cardView3.findViewById<TextView>(R.id.ContentText)
-        val Detail3 = cardView3.findViewById<TextView>(R.id.DetailText)
-        Content3.text="랭킹"
-        Detail3.text="다른 사람들과 탄소발자국을 비교해보세요!"
-
-        val Content4 = cardView4.findViewById<TextView>(R.id.ContentText)
-        val Detail4 = cardView4.findViewById<TextView>(R.id.DetailText)
-        Content4.text="커뮤니티"
-        Detail4.text="소통의 장"
+        CameraView =findViewById(R.id.CameraView)
+        albumView  =findViewById(R.id.UploadView)
+        rankView =findViewById(R.id.RankingView)
+        communityView =findViewById(R.id.CommunityView)
+        calendarView =findViewById(R.id.CalendarView)
+        myPageView =findViewById(R.id.MyPageView)
 
         /*val Content4 = cardView4.findViewById<TextView>(R.id.ContentText)
         //val Detail4 = cardView1.findViewById<TextView>(R.id.DetailText)
         Content4.text="마이페이지"*/
 
         val btn= mutableListOf<View>()
-        btn.add(findViewById(R.id.card1))
-        btn.add(findViewById(R.id.card2))
-        btn.add(findViewById(R.id.card3))
-        btn.add(findViewById(R.id.card4))
+        btn.add(CameraView )
+        btn.add(albumView )
+        btn.add(rankView)
+        btn.add(communityView)
+        btn.add(calendarView)
+        btn.add(myPageView)
 
         // 메뉴 layout 형성 ----------------------
 
@@ -148,34 +115,46 @@ class MenuActivity: AppCompatActivity()  {
         }
 
 
-        btn[1].setOnClickListener {//오늘 먹은 음식들 확인
-
-            btnEffect(btn[1])
-            val intent=Intent(this,TodayFoodActivity::class.java)
-            startActivity(intent)
-        }
-
         btn[2].setOnClickListener {//랭킹 확인
             btnEffect(btn[2])
             val intent=Intent(this,RankingActivity::class.java)
             startActivity(intent)
         }
 
-        btn[3].setOnClickListener {//랭킹 확인
+        btn[3].setOnClickListener {//커뮤니티 확인
             btnEffect(btn[3])
             val intent=Intent(this,CommunityActivity::class.java)
             startActivity(intent)
         }
 
-        //마이페이지 버튼
-        val MyPageBtn=findViewById<Button>(R.id.mypagebtn)
+        btn[4].setOnClickListener {//오늘 먹은 음식들 확인
 
-        MyPageBtn.setOnClickListener {
+            btnEffect(btn[4])
+            val intent=Intent(this,TodayFoodActivity::class.java)
+            startActivity(intent)
+        }
+
+        //마이페이지 버튼
+        btn[5].setOnClickListener {//오늘 먹은 음식들 확인
+
+            btnEffect(btn[5])
             val intent=Intent(this,MyPageActivity::class.java)
             startActivity(intent)
         }
 
 
+    }
+
+    private fun btnEffect(btn: View) {
+        val defaultDrawable = btn.background // 현재 Drawable을 저장
+
+        val newColor = Color.parseColor("#D1D0D0")
+        btn.setBackgroundColor(newColor)
+
+        handler.postDelayed({
+            // 이전 Drawable로 복원
+            btn.background = defaultDrawable
+        }, 300)
     }
 
     //뒤로가기 버튼을 두번 누르면 종료하게끔

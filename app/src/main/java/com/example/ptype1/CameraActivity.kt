@@ -43,6 +43,8 @@ class CameraActivity : AppCompatActivity() {
         val calculBtn=findViewById<Button>(R.id.calculateBtn)//계산 btn
         val regDataBtn = findViewById<Button>(R.id.RegFoodDataBtn) //음식 저장 btn
 
+        val userEmail= MyApp.prefs.getString("userEmail",null)
+
 
         retrofit = Retrofit.Builder() //retrofit 정의
             .baseUrl("http://ec2-13-125-13-127.ap-northeast-2.compute.amazonaws.com/")
@@ -118,7 +120,7 @@ class CameraActivity : AppCompatActivity() {
             val photoPart = MultipartBody.Part.createFormData("img", file.name, requestFile) //
             // 사진 file dataset 정의
 
-            val emailRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), "a000000@konkuk.ac.kr")
+            val emailRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), userEmail)
             val FoodRequestBody=RequestBody.create("text/plain".toMediaTypeOrNull(), jsonFoodArray)
             val Co2RequestBody=RequestBody.create("text/plain".toMediaTypeOrNull(), jsonCo2Array)
             val etcRequestBody=RequestBody.create("text/plain".toMediaTypeOrNull(), etc.toString())

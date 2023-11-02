@@ -22,43 +22,315 @@
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="169dp"
+                android:layout_height="150dp"
                 android:src="@drawable/earth" />
 
             <TextView
                 style="@style/viewParent.headerText"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:text="Menu" />
 
-            <include android:id="@+id/card1"
-                layout="@layout/activity_cardview" />
 
-            <include android:id="@+id/card2"
-                layout="@layout/activity_cardview" />
 
-            <include android:id="@+id/card3"
-                layout="@layout/activity_cardview" />
+                <GridLayout
+                    android:layout_width="340dp"
+                    android:layout_height="360dp"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:columnCount="3"
+                    android:rowCount="3">
 
-            <include android:id="@+id/card4"
-                layout="@layout/activity_cardview" />
+                    <LinearLayout
+                        android:id="@+id/CameraView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_rowSpan="2"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:orientation="vertical"
+                        android:background="@drawable/curve_background_view2"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:maxWidth="60dp"
+                            android:src="@drawable/cameraimg"/>
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="촬영하기"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="음식사진을\n 촬영해보세요"
+                            android:gravity="center"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/UploadView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_rowSpan="1"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:background="@drawable/curve_background_view2"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:maxWidth="40dp"
+                            android:src="@drawable/albumpng"/>
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="앨범에서\n 사진찾기"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/RankingView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_rowSpan="1"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:background="@drawable/curve_background_view2"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:maxWidth="40dp"
+                            android:src="@drawable/comimg"/>
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="랭킹"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/CommunityView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="2"
+                        android:layout_rowSpan="1"
+                        android:layout_columnSpan="2"
+                        android:layout_gravity="fill"
+                        android:background="@drawable/curve_background_view2"
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:maxWidth="50dp"
+                            android:layout_marginRight="20dp"
+                            android:src="@drawable/communityimg"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="커뮤니티"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="소통합시다~~"
+                                android:gravity="center"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/CalendarView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="2"
+                        android:layout_rowSpan="1"
+                        android:layout_columnSpan="2"
+                        android:layout_gravity="fill"
+                        android:background="@drawable/curve_background_view2"
+                        android:gravity="center">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:cropToPadding="true"
+                            android:maxWidth="50dp"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/checkfootimg"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="탄소발자취"
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_marginTop="10dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="나의 탄소배출량을 \n확인하세요"
+                                android:gravity="center"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/MyPageView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_rowSpan="1"
+                        android:layout_columnSpan="1"
+                        android:layout_gravity="fill"
+                        android:orientation="vertical"
+                        android:background="@drawable/curve_background_view2"
+                        android:gravity="center">
+
+                        <TextView
+                            android:text="My"
+                            android:gravity="center"
+                            android:textColor="@color/green2"
+                            android:textStyle="bold"
+                            android:textSize="18dp"
+                            android:layout_gravity="center"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:id="@+id/Co2"
+                            android:layout_row="0"
+                            android:layout_column="0"
+                            />
+
+                        <TextView
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="마이페이지"
+                            android:textStyle="bold"
+                            android:gravity="center"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+                </GridLayout>
+
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/mypagebtn"
-            style="@style/loginButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="right"
-
-            android:layout_marginRight="10dp"
-            android:text="My"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
             android:gravity="center"
-            android:textAllCaps="false"/>
+            android:weightSum="12">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="4"
+                android:background="@color/green2" />
+
+            <TextView
+                style="@style/viewParent.headerText.NoMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:textColor="@color/green2"
+                android:text="Made by PLAN B TEAM"
+                android:textAlignment="center"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="4"
+                android:background="@color/green2" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!--tools:showIn="@layout/app_bar_main"-->
+
+    <!--<include
+                      android:id="@+id/card1"
+                      layout="@layout/activity_cardview" />
+
+                  <include
+                      android:id="@+id/card1_1"
+                      layout="@layout/activity_cardview" />
+
+                  <include
+                      android:id="@+id/card2"
+                      layout="@layout/activity_cardview" />
+
+                  <include
+                      android:id="@+id/card3"
+                      layout="@layout/activity_cardview" />
+
+                  <include
+                      android:id="@+id/card4"
+                      layout="@layout/activity_cardview" />-->

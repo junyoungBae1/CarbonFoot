@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@drawable/curve_background_view">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,117 +15,102 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints">
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/viewParent.headerText"
-            android:layout_marginBottom="20dp"
-            android:text="Account Info" />
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:weightSum="4"
+            android:layout_weight="1">
 
-        <RelativeLayout
-            style="@style/profileDetailsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
+            <LinearLayout
+                android:background="@drawable/background_mypage"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
 
-            <ImageView
-                android:id="@+id/nameImageView"
-                style="@style/profileDetailsImage"
-                android:src="@drawable/nameimg" />
+                <TextView
+                    style="@style/profileDetailsTextMain"
+                    android:text="이름" />
 
-            <TextView
-                style="@style/profileDetailsTextMain"
-                android:layout_toRightOf="@id/nameImageView"
-                android:text="이름" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/nameMyPage"
+                    style="@style/profileDetailsMiniText"
+                    android:text="developer"
+                    android:textColor="@color/miniDescription"/>
 
-            <TextView
-                android:id="@+id/nameMyPage"
-                style="@style/profileDetailsMiniText"
-                android:layout_toRightOf="@id/nameImageView"
-                android:text="developer" />
+            </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:background="@drawable/background_mypage"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
 
-        <RelativeLayout
-            style="@style/profileDetailsLayout"
-            android:layout_height="50dp">
+                <TextView
+                    style="@style/profileDetailsTextMain"
 
-            <ImageView
-                android:id="@+id/emailImageView"
-                style="@style/profileDetailsImage"
-                android:src="@drawable/idimg" />
+                    android:text="ID" />
 
-            <TextView
-                style="@style/profileDetailsTextMain"
-                android:layout_toRightOf="@id/emailImageView"
-                android:text="ID" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/idMyPage"
+                    style="@style/profileDetailsMiniText"
+                    android:text="developer@appsnipp.com"
+                    android:textColor="@color/miniDescription"/>
 
-            <TextView
-                android:id="@+id/idMyPage"
-                style="@style/profileDetailsMiniText"
-                android:layout_toRightOf="@id/emailImageView"
-                android:text="developer@appsnipp.com" />
+            </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:background="@drawable/background_mypage"
+                android:layout_width="330dp"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
 
-        <RelativeLayout
-            style="@style/profileDetailsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/mobileImageView"
-                style="@style/profileDetailsImage"
-                android:src="@drawable/phoneimg" />
+                <TextView
+                    style="@style/profileDetailsTextMain"
+                    android:text="전화번호" />
 
-            <TextView
-                style="@style/profileDetailsTextMain"
-                android:layout_toRightOf="@id/mobileImageView"
-                android:text="전화번호" />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/phoneMyPage"
+                    style="@style/profileDetailsMiniText"
 
-            <TextView
-                android:id="@+id/phoneMyPage"
-                style="@style/profileDetailsMiniText"
-                android:layout_toRightOf="@id/mobileImageView"
-                android:text="+91-8129999999" />
+                    android:text="+91-8129999999"
+                    android:textColor="@color/miniDescription"/>
 
-        </RelativeLayout>
+            </LinearLayout>
 
-        <RelativeLayout
-            style="@style/profileDetailsLayout"
-            android:layout_height="50dp">
 
-            <ImageView
-                android:id="@+id/addressImageView"
-                style="@style/profileDetailsImage"
-                android:src="@drawable/pointimg" />
 
-            <TextView
-                style="@style/profileDetailsTextMain"
-                android:layout_toRightOf="@id/addressImageView"
-                android:text="점수" />
 
-            <TextView
-                android:id="@+id/pointMyPage"
-                style="@style/profileDetailsMiniText"
-                android:layout_toRightOf="@id/addressImageView"
-                android:text="Avenue 2nd Street NW SY." />
+        </LinearLayout>
 
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/logoutBtn"
             style="@style/parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:onClick="onLoginClick"
-            android:text="로그아웃"
+            android:text="로그아웃하기"
             android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/green1"
             android:textSize="15sp" />
 
         <View style="@style/proifleDetailsView" />
-
 
     </LinearLayout>
 

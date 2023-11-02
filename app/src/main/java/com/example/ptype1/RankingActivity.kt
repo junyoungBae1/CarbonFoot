@@ -1,6 +1,7 @@
 package com.example.ptype1
 
 import android.os.Bundle
+import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +15,12 @@ class RankingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ranking)
+        getSupportActionBar()?.setTitle("랭킹")//appbar 형성
         //items add 필요
 
         //val myName=MyApp.prefs.getString("userEmail",null)
         //val myScroe= MyApp.prefs.getString("userName",null)
+
 
             //val userScoreData=userResponse[i]
         items.add(RankingData(1,"윤성준",150,1))
