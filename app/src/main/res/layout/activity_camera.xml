@@ -39,7 +39,7 @@
         android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:id="@+id/FoodResultMainText"
-        android:text="김밥"
+        android:text=""
         android:textSize="15sp"
         android:textStyle="bold"
         android:gravity="center"/>

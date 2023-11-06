@@ -26,17 +26,26 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
+import android.renderscript.ScriptGroup.Input
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.InputStream
 
 class MenuActivity: AppCompatActivity()  {
     private lateinit var requestCameraFileLauncher : ActivityResultLauncher<Intent> //카메라 런쳐 미리 선언
+    private lateinit var requestGalleryLauncher : ActivityResultLauncher<Intent>
+
     private lateinit var CameraView : View
     private lateinit var albumView  : View
     private lateinit var rankView  : View
@@ -86,10 +95,29 @@ class MenuActivity: AppCompatActivity()  {
             }else{
                 val intent=Intent(this,CameraActivity::class.java)
                 intent.putExtra("photoPath",filePath)
+                intent.putExtra("Select","1")
                 startActivity(intent)
             }
         }
-        // 카메라 연동 ----------------------------
+
+        // 갤러리 연동 ----------------------------
+        requestGalleryLauncher=registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){
+                result-> if (result.resultCode != Activity.RESULT_OK) {
+                val backIntent=Intent(this,MenuActivity::class.java)
+                startActivity(backIntent)
+            }else{
+                val imageURI=result.data?.data
+                if (imageURI!=null){
+                    val intent=Intent(this,CameraActivity::class.java)
+
+                    intent.putExtra("photoURI",imageURI.toString())
+                    intent.putExtra("Select","2")
+                    startActivity(intent)
+                }
+
+            }
+        }
 
 
         btn[0].setOnClickListener {//사진찍는 btn
@@ -112,6 +140,13 @@ class MenuActivity: AppCompatActivity()  {
 
             //val intent=Intent(this,CameraActivity::class.java)
             //startActivity(intent)
+        }
+
+        btn[1].setOnClickListener {//갤러리
+            btnEffect(btn[1])
+            val intent=Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent.type="image/*"
+            requestGalleryLauncher.launch(intent)
         }
 
 

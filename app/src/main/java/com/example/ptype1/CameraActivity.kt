@@ -1,7 +1,14 @@
 package com.example.ptype1
 
+import android.app.ProgressDialog
+import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -22,6 +29,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.InputStream
 
 class CameraActivity : AppCompatActivity() {
 
@@ -29,15 +37,44 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var apiService: ApiService
     private lateinit var foodDataSet : Co2Data
 
+    lateinit var progressDialog : ProgressDialog
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
+        progressDialog = ProgressDialog(this)//////
 
-        val photoPath = intent.getStringExtra("photoPath")
-        val bitmap=BitmapFactory.decodeFile(photoPath)
+
+        val photoPath = intent.getStringExtra("photoPath") //카메라 찍고저장한 파일
+        val imageUriString = intent.getStringExtra("photoURI") //갤러리에서 가져온 파일
+        val connectionValue = intent.getStringExtra("Select")
         val imgView=findViewById<ImageView>(R.id.cameraResultImg)
-        imgView.setImageBitmap(bitmap)
-        Glide.with(this).load(photoPath).into(imgView)
+        val foodresult=findViewById<TextView>(R.id.FoodResultMainText)
+
+        var imageUri : Uri?=null
+        var bitmap : Bitmap? =null
+        var inputStream : InputStream?=null
+
+        if(connectionValue=="1"){ //촬영일때
+            val bitmap_1=BitmapFactory.decodeFile(photoPath)
+            bitmap=bitmap_1
+            imgView.setImageBitmap(bitmap_1)
+            Glide.with(this).load(photoPath).into(imgView)
+
+        }else if(connectionValue=="2"){ //갤러리일때
+            imageUri = Uri.parse(imageUriString)
+            inputStream = contentResolver.openInputStream(imageUri)
+
+            val bitmap_2=BitmapFactory.decodeStream(inputStream,null,null)
+
+            bitmap=bitmap_2
+            imgView.setImageBitmap(bitmap_2)
+        }
+
+
+
+
         //찍은 사진을 layout에 띄우는 코드
 
         val calculBtn=findViewById<Button>(R.id.calculateBtn)//계산 btn
@@ -55,11 +92,75 @@ class CameraActivity : AppCompatActivity() {
 
         val cardView = findViewById<CardView>(R.id.cardCo2Result) //Co2결과창 정의
         calculBtn.setOnClickListener { //계산하기 btn
-            val server=apiService.postFoodRequest("오곡밥")
+
+            progressDialog.setMessage("정보를 불러오는 중...")
+            progressDialog.setCancelable(false) // 사용자가 취소할 수 없도록 설정
+            progressDialog.show()
+
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (progressDialog.isShowing) {
+                    progressDialog.dismiss()
+
+                    val server=apiService.postFoodRequest("오곡밥")
+
+                    server.enqueue(object : Callback<FoodDTO> {
+                        override fun onResponse(call: Call<FoodDTO>, response: Response<FoodDTO>) {
+                            if (response.isSuccessful) {
+
+
+                                var EmissionCo2=0.0
+                                var EmissionCo2toTree=0.0
+                                var EmissionCo2toCar=0.0
+
+                                val responseBody=response.body()
+
+                                foodresult.text="오곡밥"
+                                if (responseBody!= null){
+                                    //EmissionCo2= responseBody.totalEmission.toDouble()
+                                    EmissionCo2=0.4
+                                    EmissionCo2toTree= 0.1
+                                    EmissionCo2toCar= 1.7
+                                }
+
+
+                                val co2TextView = cardView.findViewById<TextView>(R.id.Co2Text)
+                                val treeTextView = cardView.findViewById<TextView>(R.id.treeText)
+                                val carTextView = cardView.findViewById<TextView>(R.id.carText)
+
+                                co2TextView.text="$EmissionCo2 kgCO₂e"
+                                treeTextView.text="소나무 \n약 $EmissionCo2toTree 그루 "
+                                carTextView.text="약 $EmissionCo2toCar km"
+                                //계산하기 버튼을 누르고 서버 연결 성공하면 data들 띄우기
+
+                                foodDataSet = Co2Data(arrayListOf("오곡밥"),arrayListOf(EmissionCo2),arrayListOf(EmissionCo2toTree),arrayListOf(EmissionCo2toCar),bitmap!!)
+                                //추후 저장할 때 사용하기위한 dataset선언
+
+                                cardView.visibility = View.VISIBLE //계산 성공하면 창에 띄우기
+
+                                // 응답 성공 처리
+
+                            } else {
+                                // 서버 응답 오류 처리
+                                val errorBody = response.errorBody()?.string()
+                                Log.d("응답오류?","$errorBody")
+                                Log.d("errorCode","$response.code()")
+                            }
+                        }
+                        override fun onFailure(call: Call<FoodDTO>, t: Throwable) {
+                            // 네트워크 오류 처리
+                            Log.d("FailureError", "오류 코드 : ${t.message}")
+                        }
+                    })
+                }
+            }, 3000)
+
+            /*val server=apiService.postFoodRequest("오곡밥")
 
             server.enqueue(object : Callback<FoodDTO> {
                 override fun onResponse(call: Call<FoodDTO>, response: Response<FoodDTO>) {
                     if (response.isSuccessful) {
+
 
                         var EmissionCo2=0.0
                         var EmissionCo2toTree=0.0
@@ -82,7 +183,7 @@ class CameraActivity : AppCompatActivity() {
                         carTextView.text="약 $EmissionCo2toCar km"
                         //계산하기 버튼을 누르고 서버 연결 성공하면 data들 띄우기
 
-                        foodDataSet = Co2Data(arrayListOf("오곡밥"),arrayListOf(EmissionCo2),arrayListOf(EmissionCo2toTree),arrayListOf(EmissionCo2toCar),bitmap)
+                        foodDataSet = Co2Data(arrayListOf("오곡밥"),arrayListOf(EmissionCo2),arrayListOf(EmissionCo2toTree),arrayListOf(EmissionCo2toCar),bitmap!!)
                         //추후 저장할 때 사용하기위한 dataset선언
 
                         cardView.visibility = View.VISIBLE //계산 성공하면 창에 띄우기
@@ -100,7 +201,7 @@ class CameraActivity : AppCompatActivity() {
                     // 네트워크 오류 처리
                     Log.d("FailureError", "오류 코드 : ${t.message}")
                 }
-            })
+            })*/
         }
 
         var selectedItem: String?=null //아침 중식 석식 간식 선택 Item 선언
@@ -112,13 +213,22 @@ class CameraActivity : AppCompatActivity() {
 
 
         regDataBtn.setOnClickListener { //저장하기 btn
+
+            var photoPart : MultipartBody.Part? =null
+            if(connectionValue=="1"){
+                val file= File(photoPath)
+                val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+                photoPart = MultipartBody.Part.createFormData("img", file.name, requestFile)
+            }else if(connectionValue=="2"){
+                val filePath: String? = getRealPathFromContentUri(imageUri!!)
+                val file2 = File(filePath)
+                val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file2)
+                photoPart = MultipartBody.Part.createFormData("img", file2.name, requestFile)
+
+            } // 사진 file dataset 정의
+
             val jsonFoodArray = JSONArray(foodDataSet.foodArr).toString()
             val jsonCo2Array = JSONArray(foodDataSet.totalCo2).toString()//배열 json화
-
-            val file= File(photoPath)
-            val requestFile = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
-            val photoPart = MultipartBody.Part.createFormData("img", file.name, requestFile) //
-            // 사진 file dataset 정의
 
             val emailRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), userEmail)
             val FoodRequestBody=RequestBody.create("text/plain".toMediaTypeOrNull(), jsonFoodArray)
@@ -127,7 +237,7 @@ class CameraActivity : AppCompatActivity() {
             //responseBody 변수형으로 계산하기에서 얻은 data를 재가공
 
 
-            if(foodDataSet.totalCo2!=null){
+            if(foodDataSet.totalCo2!=null &&  photoPart!=null){
                 val server2=apiService.postFoodCo2Request(emailRequestBody,FoodRequestBody,Co2RequestBody,etcRequestBody,photoPart)
                 var alertDialog: AlertDialog? = null
                 var secondDialog: AlertDialog? = null //알람 다이어로그 정의
@@ -196,5 +306,18 @@ class CameraActivity : AppCompatActivity() {
 
         }*/
     }
+
+    fun getRealPathFromContentUri(contentUri: Uri): String? {
+        var filePath: String? = null
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = baseContext.contentResolver.query(contentUri, projection, null, null, null)
+        cursor?.use {
+            if (it.moveToFirst()) {
+                val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+                filePath = it.getString(columnIndex)
+            }
+        }
+        return filePath
+    } //사진 앨범에서 찾을 때
 
 }

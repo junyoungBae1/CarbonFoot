@@ -30,32 +30,44 @@ class RankingAdapter(val context: Context, val List: MutableList<RankingData>) :
             val rv_score=itemView.findViewById<TextView>(R.id.scoreText)
             val rv_name=itemView.findViewById<TextView>(R.id.nameText)
 
-            rv_score.text= item.point.toString()
-            rv_name.text=item.name
+            val top_rv_rank=itemView.findViewById<ImageView>(R.id.toprank_img)
+
+            rv_score.text= item.score.toString()
+            rv_name.text=item.username
 
 
 
             if (item.getImgres <= 3) {
 
-                // 배경 색상을 변경🥇🥈🥉
-                when (item.getImgres) {
+                //rv_rank.visibility = View.GONE
+                //top_rv_rank.visibility = View.VISIBLE
 
-                }
+
+                // 배경 색상을 변경🥇🥈🥉
+                /*when (item.getImgres) {
+                    1->
+
+                }*/
 
                 // 나머지 내용
                 val params = itemView.layoutParams as ViewGroup.LayoutParams
                 params.height = 200 // 새로운 높이 설정
                 itemView.layoutParams = params
 
-                rv_rank.textSize=15f
+                rv_rank.textSize=20f
                 rv_name.textSize = 20f // 글씨 크기를 24sp로 설정, 필요한 크기로 변경
                 rv_score.textSize = 20f
 
+                rv_rank.text= item.rank.toString()
+
                 // 글씨 색상 변경
+                rv_rank.setTextColor(ContextCompat.getColor(itemView.context, R.color.green2))
                 rv_name.setTextColor(ContextCompat.getColor(itemView.context, R.color.green2))
                 rv_score.setTextColor(ContextCompat.getColor(itemView.context, R.color.green2))
             }
             else{
+                //rv_rank.visibility = View.VISIBLE
+                //top_rv_rank.visibility = View.GONE
                 rv_rank.text= item.rank.toString()
             }
 

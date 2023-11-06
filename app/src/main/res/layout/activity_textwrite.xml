@@ -24,6 +24,7 @@
                 android:layout_gravity="center_vertical"
                 android:hint="제목을 입력하세요"
                 android:inputType="text"
+                android:maxLength="60"
                 android:maxLines="1"
                 android:textColorHint="@color/click_menu"
                 android:paddingLeft="10dp"

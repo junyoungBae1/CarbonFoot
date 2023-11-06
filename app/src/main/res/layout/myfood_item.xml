@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout
+    android:id="@+id/card_community"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="180dp"
-    android:layout_height="240dp"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:background="@drawable/curve_background_view">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:cardCornerRadius="15dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp">
+        android:layout_marginLeft="10dp"
+        app:cardCornerRadius="10dp">
 
         <ImageView
             android:scaleType="centerCrop"
@@ -24,34 +25,84 @@
 
     </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/NameOfFoodList"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="오곡밥"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="18dp"/>
 
-    <TextView
-        android:id="@+id/Co2OfFoodList"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="200 kgCo2e"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="13dp"/>
 
-    <TextView
-        android:id="@+id/TimeOfFoodList"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="2023-10-25 10:00"
-        android:gravity="center_horizontal"
-        android:textSize="13dp"/>
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/NameOfFoodList"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="오곡밥"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/Co2OfFoodList"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/green2"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="200 kgCo2e"
+            android:gravity="center_vertical"
+            android:textStyle="bold"
+            android:textSize="13dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_gravity="center"
+                android:src="@drawable/timepng"/>
+
+            <TextView
+                android:id="@+id/TimeOfFoodList"
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:text="2023-10-25 10:00"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:textSize="11dp"/>
+
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_gravity="center"
+                android:src="@drawable/pointimg"/>
+
+            <TextView
+                android:id="@+id/ScoreOfFoodList"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="140"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:textSize="13dp"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
 

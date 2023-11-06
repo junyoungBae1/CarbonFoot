@@ -22,10 +22,11 @@ data class ResponseDTO(
 )
 
 data class ScoreDTO(
-    @SerializedName("username")
-    var username : String,
-    @SerializedName("score")
-    var score : Number,
+
+   //@SerializedName("scores")
+    val scores: List<RankingData>,
+   @SerializedName("postDate")
+   val postDate: String
 )
 
 data class FoodDTO(
@@ -60,7 +61,7 @@ interface ApiService {
     @GET("/score/getScore")
     fun getScoreRequest(
 
-    ) :Call<List<ScoreDTO>>
+    ) :Call<List<Any>>
 
     @POST("user/logout")
     @Headers("Content-Type: application/json")

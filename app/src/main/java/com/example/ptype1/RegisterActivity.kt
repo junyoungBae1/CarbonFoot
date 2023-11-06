@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +42,8 @@ class RegisterActivity : AppCompatActivity(){
         checkPasswordText=findViewById(R.id.editTextPasswordCheck)
         phoneNumberEditText = findViewById(R.id.editTextMobile)
         signupButton = findViewById(R.id.RegisterButton)
+
+        val passwordCheckInputLayout = findViewById<TextInputLayout>(R.id.PasswordCheck)
         //회원 가입 텍스트 입력창 선언
 
 
@@ -57,22 +60,17 @@ class RegisterActivity : AppCompatActivity(){
             val phonenum = phoneNumberEditText.text.toString()
 
 
-            if (checkPassword!=password){
+            if (checkPassword!=password) {  // 비밀번호 확인 로직
+
                 checkPasswordText.backgroundTintList = ColorStateList.valueOf(Color.RED)
-                //checkPasswordText.setHint("비밀번호를 올바르게 입력해주세요") //비밀번호 확인창 경고
-
-
-                val builder=AlertDialog.Builder(this)
-                builder.setTitle("Error").setMessage("비밀번호 확인이 올바르지 않습니다").
-                        setPositiveButton("확인",DialogInterface.OnClickListener
-                        { dialogInterface, i ->  })
-
-                builder.create()
-                builder.show()
-
+                passwordCheckInputLayout.defaultHintTextColor = ColorStateList.valueOf(Color.RED)
+                passwordCheckInputLayout.setHint("비밀번호를 올바르게 입력해주세요")
+                Toast.makeText(this,"비밀번호 확인이 올바르지 않습니다",Toast.LENGTH_LONG).show()
                 return@setOnClickListener
 
-            } //이거는 비밀번호 확인하는 과정
+            } else {
+                passwordCheckInputLayout.defaultHintTextColor = ColorStateList.valueOf(Color.GRAY)
+            }
 
 
             val server=apiService.postRegisterRequest(username,email,password,phonenum)

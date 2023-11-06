@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
                         startActivity(intent)
 
                     } else { //로그인 안된코든가
-                        Toast.makeText(this@MainActivity,"계정을 다시 확인해주세요",Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity,"아이디나 비밀번호가 틀렸습니다.",Toast.LENGTH_LONG).show()
 
                         val errorBody = response.errorBody()?.string()
                         Log.d("로그인이안된듯?","$errorBody")

@@ -25,6 +25,9 @@
                 android:textSize="21sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:ems="18"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="ddfssfs"/>
 
             <TextView
@@ -36,6 +39,9 @@
                 android:textSize="16sp"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/black"
+                android:ems="40"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="ddfssfs"/>
 
             <LinearLayout

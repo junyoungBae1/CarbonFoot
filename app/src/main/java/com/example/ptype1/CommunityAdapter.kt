@@ -3,6 +3,7 @@ package com.example.ptype1
 import android.content.ClipData
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,8 @@ import com.example.ptype1.ComCheckActivity
 import org.w3c.dom.Text
 
 class CommunityAdapter(val context: Context, val List:MutableList<CommunityData>) : RecyclerView.Adapter<CommunityAdapter.ViewHolder>() {
+
+    val handler = android.os.Handler() //handler 및 btn 효과 변수 초기화
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommunityAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.community_item,parent,false)
 
@@ -36,9 +39,10 @@ class CommunityAdapter(val context: Context, val List:MutableList<CommunityData>
         var click_item=itemView.findViewById<View>(R.id.card_community)
 
         init {
-
             //item LongClick Listener
             click_item.setOnClickListener {
+
+                btnEffect(click_item)
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val itemm = List[position]
@@ -69,5 +73,17 @@ class CommunityAdapter(val context: Context, val List:MutableList<CommunityData>
             date.text=item.date
 
         }
+    }
+
+    private fun btnEffect(btn: View) {
+        val defaultDrawable = btn.background // 현재 Drawable을 저장
+
+        val newColor = Color.parseColor("#D1D0D0")
+        btn.setBackgroundColor(newColor)
+
+        handler.postDelayed({
+            // 이전 Drawable로 복원
+            btn.background = defaultDrawable
+        }, 300)
     }
 }
