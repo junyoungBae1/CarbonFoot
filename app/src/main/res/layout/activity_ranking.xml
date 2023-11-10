@@ -29,7 +29,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:layout_width="90dp"
+        android:id="@+id/CurrentRankTime"
+        android:layout_width="130dp"
         android:layout_height="20dp"
         android:text="2023-11-01 "
         android:layout_gravity="right"
@@ -51,24 +52,24 @@
         android:layout_width="match_parent"
         android:layout_height="30dp">
         <TextView
-            android:layout_marginLeft="10dp"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@color/green2"
             android:text="순위"/>
         <TextView
-            android:layout_width="220dp"
+            android:layout_width="190dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textColor="@color/green2"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="40dp"
             android:text="이름"/>
 
         <TextView
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:layout_marginLeft="40dp"
             android:text="점수"
             android:textColor="@color/green2" />
 
@@ -89,14 +90,21 @@
 
     </LinearLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Rank_View"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_rank_layout"
         android:layout_width="match_parent"
-        android:layout_height="490dp"
-        android:layout_gravity="center">
+        android:layout_height="490dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Rank_View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
 
     <TextView
         android:layout_marginLeft="5dp"
@@ -136,10 +144,10 @@
             <!-- CardView 내부의 LinearLayout 안에 다른 View들 추가 -->
 
             <TextView
-                android:id="@+id/rankingText"
+                android:id="@+id/myRanking"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:text="1"
+                android:text="-"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:layout_marginLeft="10dp"
@@ -153,24 +161,24 @@
                 android:weightSum="2">
 
                 <TextView
-                    android:id="@+id/nameText"
-                    android:layout_width="220dp"
+                    android:id="@+id/myName"
+                    android:layout_width="230dp"
                     android:layout_height="match_parent"
-                    android:text="윤성준"
+                    android:text="-"
                     android:gravity="center_vertical"
                     android:textSize="18dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="30dp"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/scoreText"
+                    android:id="@+id/myScore"
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
-                    android:text="150"
-                    android:textSize="15dp"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:layout_weight="1"/>
+                    android:text="-"
+                    android:textSize="15dp" />
 
 
             </LinearLayout>

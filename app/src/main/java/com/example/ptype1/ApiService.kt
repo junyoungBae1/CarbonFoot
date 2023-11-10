@@ -21,13 +21,13 @@ data class ResponseDTO(
     var userList:MutableList<UserData>? =null
 )
 
-data class ScoreDTO(
+/*data class ScoreDTO(
 
    //@SerializedName("scores")
     val scores: List<RankingData>,
    @SerializedName("postDate")
    val postDate: String
-)
+)*/
 
 data class FoodDTO(
     @SerializedName("totalEmission")
@@ -49,7 +49,8 @@ data class ImageDTO(
     val success: Boolean,
     val message: String,
     @SerializedName("images_data_count") val imagesDataCount: Int,
-    @SerializedName("images_data") val imagesData: List<ImageData>?
+    @SerializedName("images_data") val imagesData: List<ImageData>?,
+
 )
 
 
@@ -128,7 +129,8 @@ interface ApiService {
     @POST("noticeBoard/getBoard")
     fun postGetBoard(
         @Field("noticetoken") token : String,
-        @Field("userEmail") email : String
+        @Field("userEmail") email : String,
+        @Field("comments") comments :MutableList<CommentData>
     ):Call<checkingDTO>
 
     @FormUrlEncoded
@@ -158,6 +160,26 @@ interface ApiService {
     fun getRead(
 
     ) :Call<noticeDTO>
+
+    @FormUrlEncoded
+    @POST("noticeBoard/createComment")
+    fun getCreateComment(
+
+        @Field("noticeToken") noticetoken : String,
+        @Field("userEmail") email : String,
+        @Field("writer") writer : String,
+        @Field("content") content : String,
+
+    ) : Call<Void>
+
+    @FormUrlEncoded
+    @POST("noticeBoard/deleteComment")
+    fun getDeleteComment(
+
+        @Field("noticeToken") noticetoken : String,
+        @Field("commentId") comID : String,
+
+        ) : Call<Void>
 
 
 

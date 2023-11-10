@@ -1,0 +1,10 @@
+dish
+Rice
+Sanchae_bibimbap
+Dwaeji_Gukbab
+Ramen
+Mul_naengmyeon
+Bibim_naengmyeon
+Jajangmyeon
+Jjambbong
+Pasta

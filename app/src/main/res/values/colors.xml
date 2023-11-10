@@ -38,5 +38,6 @@
 
     <color name="profileAccentColor">#F7F7F7</color>
     <color name="myRankingColor">#F6EC94</color>
+    <color name="cancelBtn">#F44336</color>
 
 </resources>

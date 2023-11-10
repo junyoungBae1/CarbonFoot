@@ -19,12 +19,20 @@
 
     <include android:id="@+id/Num3Rank"
         layout="@layout/toprank_item" />-->
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Community_View"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"></androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/Community_View"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"/>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
     <Button
         android:id="@+id/comWriteBtn"

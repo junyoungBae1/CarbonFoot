@@ -53,18 +53,18 @@
 
                 <TextView
                     android:id="@+id/nameText"
-                    android:layout_width="250dp"
+                    android:layout_width="240dp"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="Name:1"
                     android:textSize="18dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="40dp"
                     android:textStyle="bold"
                     android:layout_weight="1"/>
 
                 <TextView
                     android:id="@+id/scoreText"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:text="Score"

@@ -3,11 +3,14 @@ package com.example.ptype1
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.Gson
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,6 +22,7 @@ class RankingActivity : AppCompatActivity() {
     private val items= mutableListOf<RankingData>()
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
+    private lateinit var swipeRefreshLayout : SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +30,7 @@ class RankingActivity : AppCompatActivity() {
         getSupportActionBar()?.setTitle("랭킹")//appbar 형성
         //items add 필요
 
-        //val myName=MyApp.prefs.getString("userEmail",null)
-        //val myScroe= MyApp.prefs.getString("userName",null)
+        val my_Name=MyApp.prefs.getString("userName",null)
 
 
             //val userScoreData=userResponse[i]
@@ -53,7 +56,12 @@ class RankingActivity : AppCompatActivity() {
 
         //Log.d("itemmmmmmm is",userScoreData.toString())
 
+        val myName=findViewById<TextView>(R.id.myName)
+        val myScore=findViewById<TextView>(R.id.myScore)
+        val myNameRank=findViewById<TextView>(R.id.myRanking)
+        val currentTime=findViewById<TextView>(R.id.CurrentRankTime)
 
+        myName.text=my_Name
 
 
         val recyclerview=findViewById<RecyclerView>(R.id.Rank_View)
@@ -84,7 +92,15 @@ class RankingActivity : AppCompatActivity() {
                     for(i in 0 until scores.size){
                         val userScoreData=scores.get(i)
                         items.add(RankingData(i+1,userScoreData.username,userScoreData.score,i+1))
+                        if(userScoreData.username==my_Name){
+                            myScore.text=userScoreData.score.toString()
+                            myNameRank.text=(i+1).toString()
+                        }
                     }
+
+                    currentTime.text=postDate
+
+
 
                     val recyclerview=findViewById<RecyclerView>(R.id.Rank_View)
                     val rvAdapter=RankingAdapter(baseContext,items)
@@ -105,6 +121,23 @@ class RankingActivity : AppCompatActivity() {
             }
         })
 
+        swipeRefreshLayout=findViewById(R.id.swipe_refresh_rank_layout)
+        swipeRefreshLayout.setOnRefreshListener {
+            // 여기에 데이터를 갱신하는 코드를 작성합니다.
+            finish();//인텐트 종료
+            overridePendingTransition(0, 0);//인텐트 효과 없애기
+            val intent = getIntent(); //인텐트
+            startActivity(intent); //액티비티 열기
+            overridePendingTransition(0, 0)
+
+            // 데이터 갱신이 끝나면 setRefreshing(false)를 호출하여 새로 고침 아이콘을 숨깁니다.
+            swipeRefreshLayout.isRefreshing = false
+        }
+
     }
+
+
+
+
 
 }

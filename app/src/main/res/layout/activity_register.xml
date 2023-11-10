@@ -124,7 +124,8 @@
                         android:textSize="15sp"
                         android:text="계정이 이미 있으신가요? 계정 찾기."
                         android:layout_marginTop="@dimen/loginViewsMargin"
-                        android:onClick="onLoginClick"/>
+                        android:onClick="onLoginClick"
+                        android:visibility="gone"/>
 
                 </LinearLayout>
             </LinearLayout>

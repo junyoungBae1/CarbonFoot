@@ -27,6 +27,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -49,13 +50,12 @@ class TodayFoodActivity: AppCompatActivity() {
 
     lateinit var emptyView :TextView
 
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todayfood)
         recyclerview = findViewById(R.id.foodView)
-        emptyView = findViewById<TextView>(R.id.emptyView)
+        emptyView = findViewById(R.id.emptyView)
 
         /*날짜정의*/
         var today= GregorianCalendar()
@@ -226,20 +226,30 @@ class TodayFoodActivity: AppCompatActivity() {
 
                         val foodData= valuesss!!.imageFoods
                         val foodStoreTime=valuesss!!.imageDate
+                        val foodetc=valuesss!!.etc
 
                         var foodname=""
                         var foodEmssion=0.0
+                        var foodScore=0
+
+                        val df = DecimalFormat("#.##")
+
                         for(i in 0 until foodData!!.size){
+
+
                             foodname=foodname+foodData[i].foodname
                             foodEmssion=foodEmssion+foodData[i].totalEmssion
+                            foodScore=foodScore+foodData[i].score.toInt()
                         }
 
+                        val foodEmssion_v = df.format(foodEmssion)
 
-                        val foodEmissionString= "Total : " + foodEmssion.toString()+" kgCo2e"
+
+                        val foodEmissionString= "Total : " + foodEmssion_v+" kgCo2e"
 
                         if (decodedBitmap != null) {
                             val drawable = BitmapDrawable(baseContext.resources, decodedBitmap)
-                            items.add(TodayFoodData(drawable, foodname, foodEmissionString,foodStoreTime ))
+                            items.add(TodayFoodData(drawable, foodname, foodEmissionString,foodStoreTime,foodScore,foodetc ))
                         }
                     }
 
@@ -281,6 +291,16 @@ class TodayFoodActivity: AppCompatActivity() {
         handler.postDelayed({
             // 이전 Drawable로 복원
             btn.background = defaultDrawable
-        }, 300)
+        }, 30)
+    }
+
+    fun ETCis(etc :Int) : String?{
+        when(etc){
+            0-> return "조식"
+            1-> return "중식"
+            2-> return "석식"
+            3-> return  "간식"
+        }
+        return null
     }
 }

@@ -3,12 +3,15 @@ package com.example.ptype1
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.GestureDetector
 import android.view.KeyEvent
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.HttpException
@@ -22,6 +25,8 @@ class CommunityActivity : AppCompatActivity() {
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
     private lateinit var writeBtn : Button
+    private lateinit var swipeRefreshLayout : SwipeRefreshLayout
+
 
     private val items= mutableListOf<CommunityData>()
 
@@ -37,6 +42,7 @@ class CommunityActivity : AppCompatActivity() {
 
 
         writeBtn=findViewById(R.id.comWriteBtn)
+        swipeRefreshLayout=findViewById(R.id.swipe_refresh_layout)
 
         retrofit = Retrofit.Builder() //retrofit 정의
             .baseUrl("http://ec2-13-125-13-127.ap-northeast-2.compute.amazonaws.com/")
@@ -55,7 +61,7 @@ class CommunityActivity : AppCompatActivity() {
                     Log.d("responseBodyyyy",response.body().toString())
 
                     for(i in response.body()?.data!!){
-                        items.add(CommunityData(i.noticeToken,i.title,i.content,i.writer,i.userEmail,i.date,i.unknown,i.matchResult))
+                        items.add(CommunityData(i.noticeToken,i.title,i.content,i.writer,i.userEmail,i.date,i.unknown,i.comments,i.matchResult))
                     }
 
 
@@ -93,6 +99,18 @@ class CommunityActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        swipeRefreshLayout.setOnRefreshListener {
+            // 여기에 데이터를 갱신하는 코드를 작성합니다.
+            finish();//인텐트 종료
+            overridePendingTransition(0, 0);//인텐트 효과 없애기
+            val intent = getIntent(); //인텐트
+            startActivity(intent); //액티비티 열기
+            overridePendingTransition(0, 0)
+
+            // 데이터 갱신이 끝나면 setRefreshing(false)를 호출하여 새로 고침 아이콘을 숨깁니다.
+            swipeRefreshLayout.isRefreshing = false
+        }
+
 
 
     }
@@ -106,4 +124,6 @@ class CommunityActivity : AppCompatActivity() {
 
         return super.onKeyDown(keyCode, event)
     }
+
+
 }

@@ -31,44 +31,40 @@ class TodayFoodAdapter(val context: Context, val List:MutableList<TodayFoodData>
 
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
+        fun bindItems(item : TodayFoodData) {
+            val img = itemView.findViewById<ImageView>(R.id.ImgOfFoodList)
+            val text_food = itemView.findViewById<TextView>(R.id.NameOfFoodList)
+            val text_emission = itemView.findViewById<TextView>(R.id.Co2OfFoodList)
+            val text_time = itemView.findViewById<TextView>(R.id.TimeOfFoodList)
+            val text_score=itemView.findViewById<TextView>(R.id.ScoreOfFoodList)
 
-        var click_item=itemView.findViewById<View>(R.id.card_community)
+            Glide.with(context).load(item.img).into(img)
+            text_food.text = item.foodname
+            text_emission.text = item.emission
+            text_score.text=item.score.toString()
 
-        init {
-            //item LongClick Listener
-            click_item.setOnClickListener {
-                btnEffect(click_item)
-                }
+
+            var etcText=""
+            if(item.etc==0){
+                etcText="간식"
+            }
+            else if(item.etc==1){
+                etcText="조식"
+            }else if(item.etc==2){
+                etcText="중식"
+            }else if(item.etc==3){
+                etcText="석식"
             }
 
-            fun bindItems(item : TodayFoodData) {
-                val img = itemView.findViewById<ImageView>(R.id.ImgOfFoodList)
-                val text_food = itemView.findViewById<TextView>(R.id.NameOfFoodList)
-                val text_emission = itemView.findViewById<TextView>(R.id.Co2OfFoodList)
-                val text_time = itemView.findViewById<TextView>(R.id.TimeOfFoodList)
-
-                Glide.with(context).load(item.img).into(img)
-                text_food.text = item.foodname
-                text_emission.text = item.emission
-                text_time.text = item.date
-                //Glide.with(context).load(item.Imageurl).into(rv_img)
-            }
+            text_time.text = item.date+" ("+etcText+")"
+            //Glide.with(context).load(item.Imageurl).into(rv_img)
         }
+    }
 
 
     fun ClearData(List:MutableList<TodayFoodData>){
         notifyDataSetChanged()
     }
 
-    private fun btnEffect(btn: View) {
-        val defaultDrawable = btn.background // 현재 Drawable을 저장
 
-        val newColor = Color.parseColor("#D1D0D0")
-        btn.setBackgroundColor(newColor)
-
-        handler.postDelayed({
-            // 이전 Drawable로 복원
-            btn.background = defaultDrawable
-        }, 300)
-    }
 }

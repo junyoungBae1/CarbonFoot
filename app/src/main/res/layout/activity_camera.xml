@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="사진을 누르면 상세정보를 볼 수 있습니다."
+        android:text="음식 인지 결과입니다."
         android:layout_gravity="center"
         android:textColor="@color/black"/>
 
@@ -192,11 +192,11 @@
     <TextView
         android:id="@+id/FoodDetectionError"
         style="@style/parent"
-        android:onClick="onLoginClick"
-        android:text="직접 음식 입력하기"
+        android:text="사진을 다시 업로드해주세요"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/green1"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        android:visibility="gone"/>
 
 </LinearLayout>

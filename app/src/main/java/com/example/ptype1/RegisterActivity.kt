@@ -60,6 +60,11 @@ class RegisterActivity : AppCompatActivity(){
             val phonenum = phoneNumberEditText.text.toString()
 
 
+            if (checkPassword==""|| password=="" ||username=="" ||email=="" ||phonenum==""){
+                Toast.makeText(this,"정보를 입력해주세요",Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             if (checkPassword!=password) {  // 비밀번호 확인 로직
 
                 checkPasswordText.backgroundTintList = ColorStateList.valueOf(Color.RED)
@@ -71,7 +76,6 @@ class RegisterActivity : AppCompatActivity(){
             } else {
                 passwordCheckInputLayout.defaultHintTextColor = ColorStateList.valueOf(Color.GRAY)
             }
-
 
             val server=apiService.postRegisterRequest(username,email,password,phonenum)
             server.enqueue(object : Callback<ResponseDTO>{
