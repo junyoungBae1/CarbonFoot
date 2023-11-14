@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/alltimefood"
+        android:title="전체">
+    </item>
+
+    <item
+        android:id="@+id/morning"
+        android:title="아침">
+    </item>
+    <item
+        android:id="@+id/afternoon"
+        android:title="점심">
+    </item>
+    <item
+        android:id="@+id/dinner"
+        android:title="저녁">
+    </item>
+
+    <item
+        android:id="@+id/snack"
+        android:title="간식">
+    </item>
+</menu>

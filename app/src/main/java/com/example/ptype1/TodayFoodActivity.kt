@@ -1,8 +1,11 @@
 package com.example.ptype1
 
 import android.animation.ObjectAnimator
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -11,14 +14,17 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +33,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.Double.sum
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -49,6 +56,11 @@ class TodayFoodActivity: AppCompatActivity() {
     val handler = android.os.Handler() //handler 및 btn 효과 변수 초기화
 
     lateinit var emptyView :TextView
+    lateinit var timeSelectBtn : Button
+
+    private var total_score=mutableListOf<Int>()
+    private var total_Emission=mutableListOf<Double>()
+    private lateinit var totalEmissionText : TextView
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +68,15 @@ class TodayFoodActivity: AppCompatActivity() {
         setContentView(R.layout.activity_todayfood)
         recyclerview = findViewById(R.id.foodView)
         emptyView = findViewById(R.id.emptyView)
+        timeSelectBtn=findViewById(R.id.foodSelectedTime)
+        totalEmissionText=findViewById(R.id.textTotalCo2Text)
+
+        total_score= mutableListOf(0, 0, 0,0)
+        total_Emission= mutableListOf(0.0, 0.0, 0.0,0.0)
+
+
+
+
 
         /*날짜정의*/
         var today= GregorianCalendar()
@@ -92,6 +113,7 @@ class TodayFoodActivity: AppCompatActivity() {
         progressDialog = ProgressDialog(this)//request완료될떄 까지 버퍼링
         enqueueImageRequest(server,progressDialog,dateString) //retrofit함수
 
+
         recyclerview.removeAllViewsInLayout();
 
 
@@ -117,7 +139,12 @@ class TodayFoodActivity: AppCompatActivity() {
                     //-----------날짜 변경한 날짜 반영. --------------
 
                     items.clear()
-                    val rvAdapter = TodayFoodAdapter(baseContext, items)
+                    val rvAdapter = TodayFoodAdapter(baseContext, items,object: TodayFoodAdapter.OnItemDeleteClickListener {
+                        override fun onItemDelete(date: String) {
+                            // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                            deleteItem(date)
+                        }
+                    })
                     rvAdapter.ClearData(items)
 
                 }
@@ -134,7 +161,12 @@ class TodayFoodActivity: AppCompatActivity() {
             btnEffect(yesterday)
 
             items.clear()
-            val rvAdapter = TodayFoodAdapter(baseContext, items)
+            val rvAdapter = TodayFoodAdapter(baseContext, items,object: TodayFoodAdapter.OnItemDeleteClickListener {
+                override fun onItemDelete(date: String) {
+                    // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                    deleteItem(date)
+                }
+            })
             rvAdapter.ClearData(items)
 
             val currentDate = getCurrentDateFromTextView()
@@ -156,7 +188,12 @@ class TodayFoodActivity: AppCompatActivity() {
             btnEffect(tomorrow)
 
             items.clear()
-            val rvAdapter = TodayFoodAdapter(baseContext, items)
+            val rvAdapter = TodayFoodAdapter(baseContext, items,object: TodayFoodAdapter.OnItemDeleteClickListener {
+                override fun onItemDelete(date: String) {
+                    // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                    deleteItem(date)
+                }
+            })
             rvAdapter.ClearData(items)
 
             val currentDate = getCurrentDateFromTextView()
@@ -172,6 +209,106 @@ class TodayFoodActivity: AppCompatActivity() {
             DatePickerDialog(this, { _, year, monthOfYear, dayOfMonth ->
             }, currentDate.get(Calendar.YEAR), currentDate.get(Calendar.MONTH), currentDate.get(Calendar.DAY_OF_MONTH))
         }
+
+        timeSelectBtn.setOnClickListener {
+            // 팝업 메뉴 생성
+            val popupMenu = PopupMenu(this, timeSelectBtn)
+
+            // 메뉴 리소스 파일과 연동
+            popupMenu.menuInflater.inflate(R.menu.todayfood_btn, popupMenu.menu)
+
+            // 메뉴 아이템 클릭 리스너 등록
+            popupMenu.setOnMenuItemClickListener { item ->
+                // 각 메뉴 아이템에 대한 동작 처리
+                when (item.itemId) {
+                    R.id.alltimefood->{
+                        val filteredList = items
+                        ViewEmpty(filteredList.size)
+                        timeSelectBtn.text="전체"
+                        val rvAdapter = TodayFoodAdapter(baseContext, filteredList.asReversed(),object: TodayFoodAdapter.OnItemDeleteClickListener {
+                            override fun onItemDelete(date: String) {
+                                // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                                deleteItem(date)
+                            }
+                        })
+                        rvAdapter.ClearData(filteredList) // 어댑터 데이터 업데이트
+                        recyclerview.adapter = rvAdapter // RecyclerView에 새로운 어댑터 설정
+                        var sum_total_score=0.0
+                        for(i in total_Emission){
+                            sum_total_score+=i
+                        }
+                        totalEmissionText.text="총 탄소배출량은 "+  Double2(sum_total_score)+" 입니다."
+                    }
+
+                    R.id.snack->{
+                        val filteredList = items.filterTo(mutableListOf()) { it.etc == 0 }
+                        ViewEmpty(filteredList.size)
+                        timeSelectBtn.text="간식"
+                        val rvAdapter = TodayFoodAdapter(baseContext, filteredList.asReversed(),object: TodayFoodAdapter.OnItemDeleteClickListener {
+                            override fun onItemDelete(date: String) {
+                                // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                                deleteItem(date)
+                            }
+                        })
+                        rvAdapter.ClearData(filteredList) // 어댑터 데이터 업데이트
+                        recyclerview.adapter = rvAdapter // RecyclerView에 새로운 어댑터 설정
+                        totalEmissionText.text="총 탄소배출량은 "+  Double2(total_Emission.get(0))+" 입니다."
+                    }
+                    R.id.morning -> {
+
+
+                        val filteredList = items.filterTo(mutableListOf()) { it.etc == 1 }
+                        ViewEmpty(filteredList.size)
+                        timeSelectBtn.text="아침"
+                        val rvAdapter = TodayFoodAdapter(baseContext, filteredList.asReversed(),object: TodayFoodAdapter.OnItemDeleteClickListener {
+                            override fun onItemDelete(date: String) {
+                                // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                                deleteItem(date)
+                            }
+                        })
+                        rvAdapter.ClearData(filteredList) // 어댑터 데이터 업데이트
+                        recyclerview.adapter = rvAdapter // RecyclerView에 새로운 어댑터 설정
+                        // 아침 메뉴 아이템 선택 시 동작
+                        totalEmissionText.text="총 탄소배출량은 "+  Double2(total_Emission.get(1))+" 입니다."
+                    }
+                    R.id.afternoon -> {
+                        val filteredList = items.filterTo(mutableListOf()) { it.etc == 2 }
+                        ViewEmpty(filteredList.size)
+                        timeSelectBtn.text="점심"
+                        val rvAdapter = TodayFoodAdapter(baseContext, filteredList.asReversed(),object: TodayFoodAdapter.OnItemDeleteClickListener {
+                            override fun onItemDelete(date: String) {
+                                // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                                deleteItem(date)
+                            }
+                        })
+                        rvAdapter.ClearData(filteredList) // 어댑터 데이터 업데이트
+                        recyclerview.adapter = rvAdapter // RecyclerView에 새로운 어댑터 설정
+                        // 점심 메뉴 아이템 선택 시 동작
+                        totalEmissionText.text="총 탄소배출량은 "+  Double2(total_Emission.get(2))+" 입니다."
+                    }
+                    R.id.dinner -> {
+                        val filteredList = items.filterTo(mutableListOf()) { it.etc == 3 }
+                        ViewEmpty(filteredList.size)
+                        timeSelectBtn.text="저녁"
+                        val rvAdapter = TodayFoodAdapter(baseContext, filteredList.asReversed(),object: TodayFoodAdapter.OnItemDeleteClickListener {
+                            override fun onItemDelete(date: String) {
+                                // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                                deleteItem(date)
+                            }
+                        })
+                        rvAdapter.ClearData(filteredList) // 어댑터 데이터 업데이트
+                        recyclerview.adapter = rvAdapter // RecyclerView에 새로운 어댑터 설정
+                        // 저녁 메뉴 아이템 선택 시 동작
+                        totalEmissionText.text="총 탄소배출량은 "+  Double2(total_Emission.get(3))+" 입니다."
+                    }
+                }
+                true
+            }
+
+            // 팝업 메뉴 표시
+            popupMenu.show()
+        }
+
 
     }
 
@@ -202,7 +339,7 @@ class TodayFoodActivity: AppCompatActivity() {
         findViewById<TextView>(R.id.DayText).setText(modifiedDateString)
     }
 
-    fun enqueueImageRequest(call: Call<ImageDTO>,progressDialog:ProgressDialog,dateString: String?) {
+    fun enqueueImageRequest(call: Call<ImageDTO>,progressDialog:ProgressDialog,dateString : String) {
 
         progressDialog.setMessage("정보를 불러오는 중...")
         progressDialog.setCancelable(false) // 사용자가 취소할 수 없도록 설정
@@ -212,10 +349,9 @@ class TodayFoodActivity: AppCompatActivity() {
             override fun onResponse(call: Call<ImageDTO>, response: Response<ImageDTO>) {
                 if (response.isSuccessful) {
 
-
                     progressDialog.dismiss()
                     val responseBody = response.body()
-
+                    Log.d("ResponseBoddddyis",responseBody.toString())
 
                     for (i in 0 until responseBody!!.imagesDataCount) {
                         Log.d("succcesss", responseBody.imagesData?.get(i)?.imageFoods.toString())
@@ -226,7 +362,11 @@ class TodayFoodActivity: AppCompatActivity() {
 
                         val foodData= valuesss!!.imageFoods
                         val foodStoreTime=valuesss!!.imageDate
+
+                        //val timeString = foodStoreTime!!.substringAfter(" ").substringBeforeLast(":") // 시간 문자열을 정수형으로 변환
+                        //val hour = timeString.substringBefore(":").toInt()
                         val foodetc=valuesss!!.etc
+
 
                         var foodname=""
                         var foodEmssion=0.0
@@ -236,16 +376,14 @@ class TodayFoodActivity: AppCompatActivity() {
 
                         for(i in 0 until foodData!!.size){
 
-
                             foodname=foodname+foodData[i].foodname
                             foodEmssion=foodEmssion+foodData[i].totalEmssion
-                            foodScore=foodScore+foodData[i].score.toInt()
+                            //foodScore=foodScore+foodData[i].score
                         }
 
                         val foodEmssion_v = df.format(foodEmssion)
-
-
                         val foodEmissionString= "Total : " + foodEmssion_v+" kgCo2e"
+
 
                         if (decodedBitmap != null) {
                             val drawable = BitmapDrawable(baseContext.resources, decodedBitmap)
@@ -253,16 +391,29 @@ class TodayFoodActivity: AppCompatActivity() {
                         }
                     }
 
-                    /* item없으면 없다고 표시*/
-                    if (responseBody!!.imagesDataCount<=0) {
-                        recyclerview.visibility = View.GONE
-                        emptyView.visibility = View.VISIBLE
-                    } else {
-                        recyclerview.visibility = View.VISIBLE
-                        emptyView.visibility = View.GONE
+                    total_Emission= mutableListOf(0.0, 0.0, 0.0,0.0)
+                    if(responseBody.total_score!=null && responseBody.total_Emssion!=null){
+                        total_score= responseBody.total_score
+                        total_Emission=responseBody.total_Emssion
+                    }
+                    var sum_total_score=0.0
+                    for(i in total_Emission){
+                        sum_total_score+=i
                     }
 
-                    val rvAdapter = TodayFoodAdapter(baseContext, items.asReversed())
+                    Double2(sum_total_score)
+                    totalEmissionText.text="총 탄소배출량은 "+  Double2(sum_total_score)+" 입니다." // 초기 탄소배출량 정의
+
+
+                    /* item없으면 없다고 표시*/
+                    ViewEmpty(responseBody!!.imagesDataCount)
+
+                    val rvAdapter = TodayFoodAdapter(baseContext, items.asReversed(),object: TodayFoodAdapter.OnItemDeleteClickListener {
+                        override fun onItemDelete(date: String) {
+                            // 여기에 삭제 요청을 보내는 코드를 작성합니다.
+                            deleteItem(date)
+                        }
+                    })
 
                     recyclerview.adapter = rvAdapter
                     recyclerview.layoutManager = LinearLayoutManager(this@TodayFoodActivity)
@@ -282,6 +433,8 @@ class TodayFoodActivity: AppCompatActivity() {
         })
     }
 
+
+
     private fun btnEffect(btn: View) {
         val defaultDrawable = btn.background // 현재 Drawable을 저장
 
@@ -294,13 +447,78 @@ class TodayFoodActivity: AppCompatActivity() {
         }, 30)
     }
 
-    fun ETCis(etc :Int) : String?{
-        when(etc){
-            0-> return "조식"
-            1-> return "중식"
-            2-> return "석식"
-            3-> return  "간식"
+    /*fun ETCis(etc :Int) : Int {
+
+        if(etc<=4 || etc>=17){
+            return 2
+        } else if( 5<=etc && etc<=11 ){
+            return 0
+        }else{
+            return 1
         }
-        return null
+
+        return -1
+    }*/
+
+    fun ViewEmpty(count : Int){
+        if (count<=0) {
+            recyclerview.visibility = View.GONE
+            emptyView.visibility = View.VISIBLE
+        } else {
+            recyclerview.visibility = View.VISIBLE
+            emptyView.visibility = View.GONE
+        }
     }
+
+    fun deleteItem(date: String){
+        val server3=apiService.postImgDelete(date)
+
+        val builder= AlertDialog.Builder(this@TodayFoodActivity)
+        builder.setTitle("alarm").setMessage("삭제하시겠습니까?").
+        setPositiveButton("YES",
+            DialogInterface.OnClickListener{ dialogInterface: DialogInterface, i: Int ->
+
+                server3.enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if(response.isSuccessful) {
+                            Log.d("Deleteeee?",response.body().toString())
+                            Toast.makeText(this@TodayFoodActivity,"항목을 삭제하였습니다", Toast.LENGTH_LONG).show()
+
+
+                            finish();//인텐트 종료
+                            overridePendingTransition(0, 0);//인텐트 효과 없애기
+                            val intent = getIntent(); //인텐트
+                            startActivity(intent); //액티비티 열기
+                            overridePendingTransition(0, 0)
+
+                        }else{
+                            val errorBody = response.errorBody()?.string()
+                            Log.d("whyGetBoardError","$errorBody")
+                            Log.d("errorCode","$response.code()")
+                        }
+                    }
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        var errorMessage = "Unknown Error"
+                        Toast.makeText(this@TodayFoodActivity, errorMessage, Toast.LENGTH_LONG).show()
+                        Log.d("NetworkError", "네트워크 오류: ${t.message}")
+                    }
+                })
+
+            }).setNegativeButton("NO", DialogInterface.OnClickListener { dialogInterface, i ->  })
+        builder.create()
+        builder.show()
+    }
+
+    fun Double2(num : Double):String{
+        val df = DecimalFormat("#.##")
+        val successDouble2 = df.format(num)
+
+        return successDouble2
+
+    }
+
 }
+
+
+
+

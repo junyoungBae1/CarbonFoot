@@ -2,7 +2,6 @@ package com.example.ptype1
 
 import android.app.Activity
 import android.content.Context
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 
 class SharedPref(context: Context) {
@@ -18,7 +17,7 @@ class SharedPref(context: Context) {
         prefs.edit().putString(key, str).apply()
     }
 
-    fun getNum(key: String, defValue: Number): Int {
+    fun getNum(key: String, defValue: Number?): Int {
         return prefs.getInt(key, defValue as Int)
     }
 
@@ -33,6 +32,10 @@ class SharedPref(context: Context) {
     fun containsString(key:String) :Boolean{
         return prefs.contains(key)
     }
+
+
+
+
 
 
 

@@ -37,6 +37,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -69,7 +70,7 @@ class MenuActivity: AppCompatActivity()  {
         rankView =findViewById(R.id.RankingView)
         communityView =findViewById(R.id.CommunityView)
         calendarView =findViewById(R.id.CalendarView)
-        myPageView =findViewById(R.id.MyPageView)
+        //myPageView =findViewById(R.id.MyPageView)
 
         /*val Content4 = cardView4.findViewById<TextView>(R.id.ContentText)
         //val Detail4 = cardView1.findViewById<TextView>(R.id.DetailText)
@@ -81,7 +82,7 @@ class MenuActivity: AppCompatActivity()  {
         btn.add(rankView)
         btn.add(communityView)
         btn.add(calendarView)
-        btn.add(myPageView)
+        btn.add(calendarView)
 
         // 메뉴 layout 형성 ----------------------
 
@@ -94,8 +95,8 @@ class MenuActivity: AppCompatActivity()  {
                 startActivity(backIntent)
             }else{
                 val intent=Intent(this,CameraActivity::class.java)
-                intent.putExtra("photoPath",filePath)
-                intent.putExtra("Select","1")
+                MyApp.prefs.setString("PhotoURI",filePath)
+                MyApp.prefs.setNum("Select",1)
                 startActivity(intent)
             }
         }
@@ -110,9 +111,8 @@ class MenuActivity: AppCompatActivity()  {
                 val imageURI=result.data?.data
                 if (imageURI!=null){
                     val intent=Intent(this,CameraActivity::class.java)
-
-                    intent.putExtra("photoURI",imageURI.toString())
-                    intent.putExtra("Select","2")
+                    MyApp.prefs.setString("PhotoURI",imageURI.toString())
+                    MyApp.prefs.setNum("Select",2)
                     startActivity(intent)
                 }
 
@@ -123,7 +123,6 @@ class MenuActivity: AppCompatActivity()  {
         btn[0].setOnClickListener {//사진찍는 btn
 
             btnEffect(btn[0])
-
             val timeStamp:String=SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
             val storageDir: File?=getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             val file=File.createTempFile(
@@ -138,15 +137,20 @@ class MenuActivity: AppCompatActivity()  {
             intent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
             requestCameraFileLauncher.launch(intent)
 
+
+
             //val intent=Intent(this,CameraActivity::class.java)
             //startActivity(intent)
         }
 
         btn[1].setOnClickListener {//갤러리
             btnEffect(btn[1])
+
             val intent=Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type="image/*"
             requestGalleryLauncher.launch(intent)
+
+
         }
 
 
@@ -162,23 +166,25 @@ class MenuActivity: AppCompatActivity()  {
             startActivity(intent)
         }
 
-        btn[4].setOnClickListener {//오늘 먹은 음식들 확인
+        btn[5].setOnClickListener {//오늘 먹은 음식들 확인
 
-            btnEffect(btn[4])
+            btnEffect(btn[5])
             val intent=Intent(this,TodayFoodActivity::class.java)
             startActivity(intent)
         }
 
         //마이페이지 버튼
-        btn[5].setOnClickListener {//오늘 먹은 음식들 확인
+        /*btn[4].setOnClickListener {//분석
 
-            btnEffect(btn[5])
+            btnEffect(btn[4])
             val intent=Intent(this,MyPageActivity::class.java)
             startActivity(intent)
-        }
+        }*/
 
 
     }
+
+
 
     private fun btnEffect(btn: View) {
         val defaultDrawable = btn.background // 현재 Drawable을 저장
@@ -191,6 +197,7 @@ class MenuActivity: AppCompatActivity()  {
             btn.background = defaultDrawable
         }, 300)
     }
+
 
     //뒤로가기 버튼을 두번 누르면 종료하게끔
     override fun onKeyDown(keyCode:Int, event: KeyEvent?):Boolean{

@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/btn_morning"
+        android:title="아침">
+    </item>
+    <item
+        android:id="@+id/btn_afternoon"
+        android:title="점심">
+    </item>
+    <item
+        android:id="@+id/btn_dinner"
+        android:title="저녁">
+    </item>
+    <item
+        android:id="@+id/btn_snack"
+        android:title="간식">
+    </item>
+</menu>

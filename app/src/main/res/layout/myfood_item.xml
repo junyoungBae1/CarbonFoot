@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="120dp"
     android:orientation="horizontal"
     android:background="@drawable/curve_background_view">
 
@@ -34,18 +34,34 @@
         android:orientation="vertical"
         android:gravity="center_vertical">
 
-
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:id="@+id/NameOfFoodList"
-            android:layout_marginTop="5dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:text="오곡밥"
-            android:textColor="@color/black"
-            android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:textSize="16dp"/>
+            android:layout_height="40dp">
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/NameOfFoodList"
+                android:layout_marginTop="5dp"
+                android:layout_width="265dp"
+                android:layout_height="match_parent"
+                android:text="오곡밥"
+                android:textColor="@color/black"
+                android:gravity="center_vertical"
+                android:textStyle="bold"
+                android:textSize="16dp"/>
+
+            <TextView
+                android:layout_marginLeft="0dp"
+                android:id="@+id/cancelFood"
+                android:layout_marginTop="5dp"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:text="X"
+                android:gravity="center|top"
+                android:textStyle="bold"
+                android:textSize="12dp"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/Co2OfFoodList"

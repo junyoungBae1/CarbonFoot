@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/curve_background_view3">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/searchimg"
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:id="@+id/search_inputtext"
+            android:layout_width="350dp"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:hint="음식을 검색하세요"
+            android:inputType="text"
+            android:maxLength="300"
+            android:maxLines="10"
+            android:paddingLeft="10dp"
+            android:layout_gravity="center"
+            android:textColorHint="@color/click_menu"
+            android:textSize="14sp" />
+
+        <!--<TextView
+            android:id="@+id/search_store"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:text="검색"
+            android:textColor="@color/green2"
+            android:textSize="18sp" />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="550dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/SearchFood_View"
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/SearchEmptyView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="검색 결과가 없습니다"
+            android:gravity="center"
+            android:textColor="@color/click_menu"
+            android:layout_centerInParent="true"
+            android:textSize="20sp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/SearchFoodCheckText"
+            style="@style/parent"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:text="음식을 선택해주세요"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/green1"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/FoodReRegBtn"
+            style="@style/loginButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:text="저장"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>-->
+
+</LinearLayout>
+
+        <!--<Button
+            android:id="@+id/FoodReRegBtn"
+            style="@style/loginButton"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:text="저장"
+            android:visibility="gone"/>-->

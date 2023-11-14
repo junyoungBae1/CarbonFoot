@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
 import java.util.Date
+import java.util.Dictionary
 
 data class ResponseDTO(
     val message: String?,
@@ -50,7 +51,13 @@ data class ImageDTO(
     val message: String,
     @SerializedName("images_data_count") val imagesDataCount: Int,
     @SerializedName("images_data") val imagesData: List<ImageData>?,
+    @SerializedName("score")val total_score :  MutableList<Int>,
+    @SerializedName("totalEmission")val total_Emssion : MutableList<Double> ,
 
+)
+
+data class SearchDTO(
+    @SerializedName("foodnames") val foodnames: List<String>
 )
 
 
@@ -126,6 +133,12 @@ interface ApiService {
     ):Call<ImageDTO>
 
     @FormUrlEncoded
+    @POST("image/delete")
+    fun postImgDelete(
+        @Field("date") date:String
+    ):Call<Void>
+
+    @FormUrlEncoded
     @POST("noticeBoard/getBoard")
     fun postGetBoard(
         @Field("noticetoken") token : String,
@@ -175,13 +188,16 @@ interface ApiService {
     @FormUrlEncoded
     @POST("noticeBoard/deleteComment")
     fun getDeleteComment(
-
         @Field("noticeToken") noticetoken : String,
         @Field("commentId") comID : String,
 
         ) : Call<Void>
 
-
+    @FormUrlEncoded
+    @POST("search/foods")
+    fun getSearchFoods(
+        @Field("q") searchQuery: String
+    ): Call<SearchDTO>
 
 
 }
